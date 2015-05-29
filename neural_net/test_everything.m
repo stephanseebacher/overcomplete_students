@@ -38,8 +38,22 @@ setdemorandstream(491218382)
 net= feedforwardnet(z);
 %target_data is equal to train_data
 Target_Data=Data;
+
+% Training paramters
+%set particular training goal 
+%TODO: choose carefully
+net.trainParam.goal=0.01;
+%max iterations
+net.trainParam.epochs=8;
+%max training time in seconds
+net.trainParam.time=45; 
+
+% set trainging function
+% net.trainFcn ='trainlm'; % so far default used because faster
+
 [net,tr] = train(net,Data,Target_Data);
 nntraintool
+
 
 net_enc=get_encoding_net(net,k,z);
 net_dec=get_decoding_net(net,k,z);

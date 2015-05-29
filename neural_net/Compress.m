@@ -40,6 +40,19 @@ setdemorandstream(491218382)
 net= feedforwardnet(z);
 %target_data is equal to train_data
 Target_Data=Data;
+
+% Training paramters
+%set particular training goal 
+%TODO: choose carefully
+net.trainParam.goal=0.01;
+%max iterations
+net.trainParam.epochs=8;
+%max training time in seconds
+net.trainParam.time=45; 
+
+% set trainging function
+% net.trainFcn ='trainlm'; % so far default used because faster
+
 [net,tr] = train(net,Data,Target_Data);
 nntraintool
 
@@ -61,10 +74,6 @@ for c=1:colours
 
             %use net to compress
             comp_x=net_enc(x);
-
-    %         %transform back real valued data to sqrt(z) x sqrt(z) chunk and
-    %         %quantisize data: so compress even more!
-    %         comp_x=real_to_pixel(comp_x,sqrt(z));
 
             %reshape data
             comp_x=reshape(comp_x,sqrt(z),sqrt(z));
