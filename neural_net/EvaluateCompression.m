@@ -20,7 +20,7 @@ for i = 3:length(dir) % runing through the folder
     I = imread(file_name); 
     %I = double(I) / 255; 
     
-    size_orig = whos('I'); % size of original image
+    
     
     I_comp = Compress(I); % compress image
     I_rec = Decompress(I_comp); % decompress it
@@ -28,8 +28,12 @@ for i = 3:length(dir) % runing through the folder
     % Measure approximation error
     Errors(k) = mean(mean(mean( ((I - I_rec) ).^2)));
 
+    I = double(I); %need to adapt after TODO
+    size_orig = whos('I'); % size of original image
+    
     % Measure compression rate
     size_comp = whos('I_comp'); % size of compresseed image
+    
     Comp_rates(k) = size_comp.bytes / size_orig.bytes; 
     
     k = k+1;

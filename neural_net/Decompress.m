@@ -1,7 +1,7 @@
 function I_rec = Decompress(I_comp)
 
 %read data for recontruction
-I_compressed=I_comp.I;
+I_compressed=double(I_comp.I)/10000;
 rows=I_comp.image_size{1};
 cols=I_comp.image_size{2};
 colours=I_comp.image_size{3};

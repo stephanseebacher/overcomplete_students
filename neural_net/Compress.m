@@ -46,9 +46,9 @@ Target_Data=Data;
 %TODO: choose carefully
 net.trainParam.goal=0.01;
 %max iterations
-net.trainParam.epochs=8;
+net.trainParam.epochs=4;
 %max training time in seconds
-net.trainParam.time=45; 
+net.trainParam.time=20; 
 
 % set trainging function
 % net.trainFcn ='trainlm'; % so far default used because faster
@@ -60,7 +60,7 @@ net_enc=get_encoding_net(net,k,z);
 net_dec=get_decoding_net(net,k,z);
 
 %now encode all the image
-I_compressed=double(zeros(maxrows/k*sqrt(z),maxcols/k*sqrt(z),colours)); % to correct/make sure
+I_compressed=int16(zeros(maxrows/k*sqrt(z),maxcols/k*sqrt(z),colours)); % to correct/make sure
 % use trained net to reconstuct each k*k chunk in data
 for c=1:colours
     i_c=1;
@@ -74,11 +74,13 @@ for c=1:colours
 
             %use net to compress
             comp_x=net_enc(x);
-
+            
+            %quanitize data for compression to 
+            
             %reshape data
             comp_x=reshape(comp_x,sqrt(z),sqrt(z));
             %set compressed image to computed values
-            I_compressed(i_c:i_c+sqrt(z)-1,j_c:j_c+sqrt(z)-1,c)=comp_x;
+            I_compressed(i_c:i_c+sqrt(z)-1,j_c:j_c+sqrt(z)-1,c)=int16(comp_x*10000);
             j_c=j_c+sqrt(z);
         end
         i_c=i_c+sqrt(z);
@@ -86,7 +88,7 @@ for c=1:colours
 end
 figure;
 subplot(1,2,1),imshow(uint8(I)),title('Original image');
-subplot(1,2,2),imshow(I_compressed),title('Compressed image');
+subplot(1,2,2),imshow(uint8(I_compressed)),title('Compressed image');
 
 
 I_comp.I = I_compressed;
