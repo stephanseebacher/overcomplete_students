@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2015.5.29)  30 MAY 2015 13:24
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2015.5.29)  30 MAY 2015 14:56
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -218,73 +218,73 @@ LaTeX Warning: Citation `wavelab' on page 1 undefined on input line 52.
 
 LaTeX Warning: Citation `gentleman05' on page 1 undefined on input line 52.
 
+<nnStructure.png, id=1, 410.53375pt x 249.93375pt>
+File: nnStructure.png Graphic file (type png)
+ <use nnStructure.png>
+Package pdftex.def Info: nnStructure.png used on input line 111.
+(pdftex.def)             Requested size: 243.91125pt x 148.49313pt.
+
 [1{/usr/local/texlive/2014/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
 
 ]
-
-! LaTeX Error: File `nnStructure' not found.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.114 ...graphics[width=\columnwidth]{nnStructure}
-                                                  
-? 
-<local_wdenoised_1d.png, id=10, 578.16pt x 433.62pt>
+<local_wdenoised_1d.png, id=11, 578.16pt x 433.62pt>
 File: local_wdenoised_1d.png Graphic file (type png)
 
 <use local_wdenoised_1d.png>
-Package pdftex.def Info: local_wdenoised_1d.png used on input line 120.
+Package pdftex.def Info: local_wdenoised_1d.png used on input line 122.
 (pdftex.def)             Requested size: 243.91125pt x 182.93298pt.
 
 
-LaTeX Warning: Citation `anderson04' on page 2 undefined on input line 149.
+LaTeX Warning: Reference `fig:denoise-fourier' on page 2 undefined on input lin
+e 128.
 
 
-LaTeX Warning: Citation `wavelab' on page 2 undefined on input line 149.
+LaTeX Warning: Citation `anderson04' on page 2 undefined on input line 151.
 
 
-LaTeX Warning: Citation `kallet04methods' on page 2 undefined on input line 157
+LaTeX Warning: Citation `wavelab' on page 2 undefined on input line 151.
+
+
+LaTeX Warning: Citation `kallet04methods' on page 2 undefined on input line 159
 .
 
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 187.
+(Font)              <8> on input line 189.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 187.
+(Font)              <6> on input line 189.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 187.
+(Font)              <5> on input line 189.
 
-LaTeX Warning: Citation `hunt99pragmatic' on page 2 undefined on input line 207
+LaTeX Warning: Citation `hunt99pragmatic' on page 2 undefined on input line 209
 .
 
 
 LaTeX Warning: Citation `spolsky04software' on page 2 undefined on input line 2
-08.
+10.
 
 
-LaTeX Warning: Citation `schwab00' on page 2 undefined on input line 211.
+LaTeX Warning: Citation `schwab00' on page 2 undefined on input line 213.
 
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 214.
-LaTeX Font Info:    Try loading font information for OT1+pcr on input line 214.
+(Font)              <7> on input line 216.
+LaTeX Font Info:    Try loading font information for OT1+pcr on input line 216.
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/psnfss/ot1pcr.fd
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
-)
-Underfull \hbox (badness 10000) in paragraph at lines 225--227
+) [2 <./nnStructure.png> <./local_wdenoised_1d.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 227--229
 []\OT1/ptm/m/n/10 Use mean-ing-ful file-names, and not \OT1/pcr/m/n/10 temp1.m\
 OT1/ptm/m/n/10 ,
  []
 
 
-Underfull \hbox (badness 3815) in paragraph at lines 225--227
+Underfull \hbox (badness 3815) in paragraph at lines 227--229
 \OT1/pcr/m/n/10 temp2.m\OT1/ptm/m/n/10 . The code should also un-zip into a
  []
 
-[2 <./local_wdenoised_1d.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 320--321
+
+Underfull \hbox (badness 10000) in paragraph at lines 322--323
 \OT1/ptm/m/n/10 This should give you a PDF doc-u-ment
  []
 
@@ -301,21 +301,16 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[4
-
-] (./howto-paper.aux)
+[4] (./howto-paper.aux)
 
 LaTeX Warning: There were undefined references.
 
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
  ) 
 Here is how much of TeX's memory you used:
- 2320 strings out of 493117
- 36746 string characters out of 6135433
+ 2313 strings out of 493117
+ 36792 string characters out of 6135433
  103058 words of memory out of 5000000
- 5757 multiletter control sequences out of 15000+600000
+ 5762 multiletter control sequences out of 15000+600000
  42523 words of font info for 78 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  37i,8n,23p,743b,312s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -328,10 +323,10 @@ exmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2014/texmf-dist/
 fonts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2014/texmf-dist/fonts/typ
 e1/urw/times/utmr8a.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/urw/tim
 es/utmri8a.pfb>
-Output written on howto-paper.pdf (4 pages, 136116 bytes).
+Output written on howto-paper.pdf (4 pages, 140907 bytes).
 PDF statistics:
- 53 PDF objects out of 1000 (max. 8388607)
+ 54 PDF objects out of 1000 (max. 8388607)
  36 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 6 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 11 words of extra memory for PDF output out of 10000 (max. 10000000)
 

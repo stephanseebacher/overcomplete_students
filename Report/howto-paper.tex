@@ -106,15 +106,17 @@ Inspired by biological nervous systems, such as the human brain, artificial neur
 \\
 wieso verwendet man denn gerade Neuronale netzwerke....
 \subsection{Neural Network Structure}
-Figure (BLA) shows the neural network structure we use for compression. There are three layers: input layer, hidden layer and output layer. The input layer and the hidden layer are fully interconnected as are the hidden layer and the output layer. The weights of the edges are detrermined by the training algorithm which is described in the next section. 
-\subsection{Neural Network Training Algorithm}
-
 \begin{figure}[tbp]
   \centering
-  \includegraphics[width=\columnwidth]{denoised_signal_1d}
-  \caption{Signal compression and denoising using the Fourier basis.}
-  \label{fig:denoise-fourier}
+  \includegraphics[width=\columnwidth]{nnStructure}
+  \caption{Neural Network Structure for compression.}
+  \label{fig:nnStructure}
 \end{figure}
+
+Figure~\ref{fig:nnStructure} shows the neural network structure we use for compression. There are three layers: input layer, hidden layer and output layer. The input layer and the hidden layer are fully interconnected as are the hidden layer and the output layer. The weights of the edges are detrermined by the training algorithm which is described in the next section. 
+\subsection{Neural Network Training Algorithm}
+
+
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=\columnwidth]{local_wdenoised_1d}
