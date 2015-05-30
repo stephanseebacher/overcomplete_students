@@ -102,8 +102,9 @@ subplot(1,2,2),imshow(uint8(I_compressed)),title('Compressed image');
 
 % SVD
 d = 8;
-[U, S, V] = svd(extract_patches(I_compressed, d));
-k = round(rank(I_compressed) * 0.6);
+I = extract_patches(I_compressed, d);
+[U, S, V] = svd( I );
+k = round(rank( I ) * 0.6);
 
 I_comp.svdsize = size(I_compressed);
 I_comp.U = U(:, 1:k);
