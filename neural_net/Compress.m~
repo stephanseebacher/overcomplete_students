@@ -66,9 +66,6 @@ I_compressed=int16(zeros(maxrows/k*sqrt(z),maxcols/k*sqrt(z),colours)); % to cor
 compressed_data={}
 %counter cell array
 counter_cell=1;
-% use 3 bit quantization
-quanitization_bits=3;
-
 for c=1:colours
     i_c=1;
     for i=1:k:maxrows
@@ -83,7 +80,8 @@ for c=1:colours
             comp_x=net_enc(x);
             
             %quanitize data for much compression to
-            quantized_data=quantize(comp_x,quanitization_bits);
+            % use 3 bit quantization
+            quantized_data=quantize(comp_x,3);
             compressed_data{counter_cell}=quantized_data;
             counter_cell=counter_cell+1;
             %compute compressed image
@@ -103,8 +101,7 @@ subplot(1,2,2),imshow(uint8(I_compressed)),title('Compressed image');
 
 % I_comp.I = I_compressed;
 I_comp.compressed_data=compressed_data;
-I_comp.number_bits=quanitization_bits*z;
-I_comp.quanitization_bits=quanitization_bits;
+I_comp-number_bits=number_in_compressed_data_bits;
 I_comp.net_dec = net_dec;
 % add uncompressed rest of image not handled because of chunk size, to add
 % for reconstuction
