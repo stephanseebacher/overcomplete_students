@@ -16,7 +16,7 @@ maxcols=I_comp.image_size{7};
 
 % SVD
 I = I_comp.U * diag(I_comp.S) * I_comp.V';
-I_compressed = reassemble(I, I_comp.svdsize);
+I_compressed = reassemble_patches(I, I_comp.svdsize);
 
 I_reconstructed=uint8(zeros(rows,cols,colours));
 
