@@ -1,5 +1,5 @@
 function [ enc ] = get_bit_encoding(x,bit_number)
-% compute encoding for x using bit_number bits
+% compute encoding for x using bit_number bits in a string
 % assume x between -1 and 1
 
 possible_x=-1:2/(2^bit_number):1;
