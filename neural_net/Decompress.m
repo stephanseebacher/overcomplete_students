@@ -1,7 +1,10 @@
 function I_rec = Decompress(I_comp)
 
 %read data for recontruction
-I_compressed=double(I_comp.I)/10000;
+% I_compressed=double(I_comp.I)/10000;
+number_bits=I_comp.number_bits;
+quanitization_bits=I_comp.quanitization_bits;
+compressed_data=I_comp.compressed_data;
 rows=I_comp.image_size{1};
 cols=I_comp.image_size{2};
 colours=I_comp.image_size{3};
@@ -13,6 +16,8 @@ maxcols=I_comp.image_size{7};
 
 I_reconstructed=uint8(zeros(rows,cols,colours));
 
+%counter cell of compressed data
+counter_cell=1;
 % use trained net to reconstuct each k*k chunk in data
 for c=1:colours
     i_c=1;
@@ -20,7 +25,13 @@ for c=1:colours
         j_c=1;
         for j=1:k:maxcols
             %extract squrt(z)x sqrt(z) chunk
-            x=I_compressed(i_c:i_c+sqrt(z)-1,j_c:j_c+sqrt(z)-1,c);
+%             x=I_compressed(i_c:i_c+sqrt(z)-1,j_c:j_c+sqrt(z)-1,c);
+            
+            %use compressed quantized data
+            actual_compr=compressed_data{counter_cell};
+            counter_cell=counter_cell+1;
+            %decode quantized data
+            x=extract_compr(actual_compr,number_bits,quanitization_bits);
 
             %use net to decompress data
             decomp_x=net_dec(x(:));
