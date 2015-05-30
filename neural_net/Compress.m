@@ -100,8 +100,17 @@ figure;
 subplot(1,2,1),imshow(uint8(I)),title('Original image');
 subplot(1,2,2),imshow(uint8(I_compressed)),title('Compressed image');
 
+% SVD
+d = 8;
+[U, S, V] = svd(extract(I_compressed, d));
+k = round(rank(I_compressed) * 0.6);
 
+I_comp.svdsize = size(I_compressed);
+I_comp.U = U(:, 1:k);
+I_comp.S = diag(S(1:k, 1:k));
+I_comp.V = V(:, 1:k);
 % I_comp.I = I_compressed;
+
 I_comp.compressed_data=compressed_data;
 I_comp.number_bits=quanitization_bits*z;
 I_comp.quanitization_bits=quanitization_bits;

@@ -14,6 +14,10 @@ z=I_comp.image_size{5};
 maxrows=I_comp.image_size{6};
 maxcols=I_comp.image_size{7};
 
+% SVD
+I = I_comp.U * diag(I_comp.S) * I_comp.V';
+I_compressed = reassemble(I, I_comp.svdsize);
+
 I_reconstructed=uint8(zeros(rows,cols,colours));
 
 %counter cell of compressed data
