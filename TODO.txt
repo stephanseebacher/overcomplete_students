@@ -1,0 +1,30 @@
+== TODO list
+
+- Dynamic metrics
+	+ SVD
+	+ NN
+	+ Quantization
+	+ Parameters
+
+- Optimization
+	+ NN and parameters (see also dynamic metrics)
+
+- Write and improve paper
+
+- Second baseline
+
+- Code refactoring and comments
+	+ Meaningful variable names etc.
+
+- NN initialization and training
+	+ separate training from compression (modular)
+	+ store default network
+
+- Entropy coding / Run length coding / arithmetic coding after quantization
+
+- Finish pipeline
+
+- Compare with baselines
+
+- Train NN with MANY images
+	+ get large set of (training) images
