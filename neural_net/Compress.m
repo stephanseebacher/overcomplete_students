@@ -60,7 +60,7 @@ net_enc=get_encoding_net(net,k,z);
 net_dec=get_decoding_net(net,k,z);
 
 %now encode all the image
-I_compressed=int16(zeros(maxrows/k*sqrt(z),maxcols/k*sqrt(z),colours)); % to correct/make sure
+I_compressed=double(zeros(maxrows/k*sqrt(z),maxcols/k*sqrt(z),colours)); % to correct/make sure
 % use trained net to reconstuct each k*k chunk in data
 %compressed and quantized data
 compressed_data={}
@@ -90,7 +90,7 @@ for c=1:colours
             %reshape data
             comp_x=reshape(comp_x,sqrt(z),sqrt(z));
             %set compressed image to computed values
-            I_compressed(i_c:i_c+sqrt(z)-1,j_c:j_c+sqrt(z)-1,c)=int16(comp_x*10000);
+            I_compressed(i_c:i_c+sqrt(z)-1,j_c:j_c+sqrt(z)-1,c)=double(comp_x);
             j_c=j_c+sqrt(z);
         end
         i_c=i_c+sqrt(z);
@@ -110,6 +110,7 @@ I_comp.svdsize = size(I_compressed);
 I_comp.U = Usvd(:, 1:ksvd);
 I_comp.S = diag(Ssvd(1:ksvd, 1:ksvd));
 I_comp.V = Vsvd(:, 1:ksvd);
+
 % I_comp.I = I_compressed;
 
 I_comp.compressed_data=compressed_data;

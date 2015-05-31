@@ -1,7 +1,7 @@
 function I_rec = Decompress(I_comp)
 
 %read data for recontruction
-% I_compressed=double(I_comp.I)/10000;
+% I_compressed=double(I_comp.I);
 number_bits=I_comp.number_bits;
 quanitization_bits=I_comp.quanitization_bits;
 compressed_data=I_comp.compressed_data;
