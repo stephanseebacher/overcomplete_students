@@ -104,7 +104,9 @@ subplot(1,2,2),imshow(uint8(I_compressed)),title('Compressed image');
 dsvd = 8;
 Isvd = extract_patches(I_compressed, dsvd);
 [Usvd, Ssvd, Vsvd] = svd( Isvd );
-ksvd = round(rank( Isvd ) * 0.6);
+% percent singular values considered
+prct_singval=0.6;
+ksvd = round(rank( Isvd ) * prct_singval);
 
 I_comp.svdsize = size(I_compressed);
 I_comp.U = Usvd(:, 1:ksvd);
