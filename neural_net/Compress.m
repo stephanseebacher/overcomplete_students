@@ -101,15 +101,15 @@ subplot(1,2,1),imshow(uint8(I)),title('Original image');
 subplot(1,2,2),imshow(uint8(I_compressed)),title('Compressed image');
 
 % SVD
-d = 8;
-I = extract_patches(I_compressed, d);
-[U, S, V] = svd( I );
-k = round(rank( I ) * 0.6);
+dsvd = 8;
+Isvd = extract_patches(I_compressed, dsvd);
+[Usvd, Ssvd, Vsvd] = svd( Isvd );
+ksvd = round(rank( Isvd ) * 0.6);
 
 I_comp.svdsize = size(I_compressed);
-I_comp.U = U(:, 1:k);
-I_comp.S = diag(S(1:k, 1:k));
-I_comp.V = V(:, 1:k);
+I_comp.U = Usvd(:, 1:ksvd);
+I_comp.S = diag(Ssvd(1:ksvd, 1:ksvd));
+I_comp.V = Vsvd(:, 1:ksvd);
 % I_comp.I = I_compressed;
 
 I_comp.compressed_data=compressed_data;
