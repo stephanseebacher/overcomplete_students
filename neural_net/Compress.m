@@ -63,7 +63,30 @@ net_enc=get_encoding_net(net,k,z);
 net_dec=get_decoding_net(net,k,z);
 
 %now encode all the image
-I_compressed=double(zeros(maxrows/k*sqrt(z),maxcols/k*sqrt(z),colours)); % to correct/make sure
+
+height = size(I, 1);
+width = size(I, 2);
+w_rest=mod(width,k);
+h_rest=mod(height,k);
+
+%add padding if not either col/row number not divisible by k (replicate last col/row)
+%add columns
+if (w_rest~=0)
+    I =[ I repmat(I(:,width,:),[1 k-w_rest]) ];
+    width=width+k-w_rest;
+end
+
+% add rows
+if(h_rest~=0)
+    I =[ I ; repmat(I(height,:,:),[k-h_rest 1])];
+    height=height+k-h_rest;
+end
+
+%update this variable now
+maxrows=height;
+maxcols=width;
+ 
+I_compressed=double(zeros((maxrows/k +1)*sqrt(z),(maxcols/k +1 )*sqrt(z),colours));
 % use trained net to reconstuct each k*k chunk in data
 %compressed and quantized data
 compressed_data={};
@@ -101,14 +124,16 @@ for c=1:colours
     disp(['Compressing of colour channel ' num2str(c) ' done.']);
 end
 
-figure;
-subplot(1,2,1);
-title('Original image');
-imshow(uint8(I));
+figure
+subplot(1,2,1)
+imshow(uint8(I))
+title('Original image')
 
-subplot(1,2,2);
-title('Compressed image');
-imshow(uint8(I_compressed));
+
+subplot(1,2,2)
+imshow(uint8(I_compressed))
+title('Compressed image')
+
 
 % SVD
 dsvd = 8;
@@ -131,6 +156,6 @@ I_comp.quanitization_bits=quanitization_bits;
 I_comp.net_dec = net_dec;
 % add uncompressed rest of image not handled because of chunk size, to add
 % for reconstuction
-I_comp.uncompressed_part={I(:,j+k:cols,:), I(i+k:rows,:,:)};
+% I_comp.uncompressed_part={I(:,j+k:cols,:), I(i+k:rows,:,:)};
 %add size image
 I_comp.image_size={rows,cols,colours,k,z,maxrows,maxcols};

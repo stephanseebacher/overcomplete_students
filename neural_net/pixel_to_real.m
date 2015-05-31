@@ -4,7 +4,7 @@ function [ train_data ] = pixel_to_real( train_data )
     
     %vectorized it
     train_data=train_data(:);
-    %convert pixel to real values
+    %convert pixel to real values between -1 and 1
     for i=1:length(train_data)
         train_data(i)=-1+train_data(i)*(2/255);
     end
