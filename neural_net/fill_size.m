@@ -1,4 +1,4 @@
-function [ fill_rows, fill_cols ] = f( s, p )
+function [ fill_rows, fill_cols ] = fill_size( s, p )
 %F Summary of this function goes here
 %   Detailed explanation goes here
 

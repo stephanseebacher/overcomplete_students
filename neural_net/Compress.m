@@ -63,7 +63,7 @@ net_dec=get_decoding_net(net,k,z);
 I_compressed=double(zeros(maxrows/k*sqrt(z),maxcols/k*sqrt(z),colours)); % to correct/make sure
 % use trained net to reconstuct each k*k chunk in data
 %compressed and quantized data
-compressed_data={}
+compressed_data={};
 %counter cell array
 counter_cell=1;
 % use 3 bit quantization

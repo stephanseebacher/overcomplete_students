@@ -1,7 +1,7 @@
 function Iout = extract_patches ( I, p )
 
 % number of rows and columns to add in pre-processing step
-[fill_rows, fill_cols] = f(size(I), p);
+[fill_rows, fill_cols] = fill_size(size(I), p);
 
 if (fill_rows ~= 0) || (fill_cols ~= 0)
     % preallocate fixed matrix
