@@ -59,9 +59,32 @@ net_enc=get_encoding_net(net,k,z);
 net_dec=get_decoding_net(net,k,z);
 
 %%
-%now encode all the image
 
-I_compressed=double(zeros(maxrows/k*sqrt(z),maxcols/k*sqrt(z),3)); % to correct
+height = size(I, 1);
+width = size(I, 2);
+w_rest=mod(width,k);
+h_rest=mod(height,k);
+
+%add padding if not either col/row number not divisible by k (replicate last col/row)
+%add columns
+if (w_rest~=0)
+    I =[ I repmat(I(:,width,:),[1 k-w_rest]) ];
+    width=width+k-w_rest;
+end
+
+% add rows
+if(h_rest~=0)
+    I =[ I ; repmat(I(height,:,:),[k-h_rest 1])];
+    height=height+k-h_rest;
+end
+
+%update this variable now
+maxrows=height;
+maxcols=width;
+
+
+%now encode all the image
+I_compressed=double(zeros((maxrows/k +1)*sqrt(z),(maxcols/k +1 )*sqrt(z),3)); 
 % use trained net to reconstuct each k*k chunk in data
 for c=1:3
     i_c=1;
@@ -96,7 +119,7 @@ subplot(1,2,2),imshow(I_compressed),title('Compressed image');
 
 %%
 
-I_reconstructed=zeros(rows,cols,3); % to correct
+I_reconstructed=zeros(rows,cols,3);
 % use trained net to reconstuct each k*k chunk in data
 for c=1:3
     i_c=1;
@@ -120,9 +143,9 @@ for c=1:3
 end
 % add uncompressed rest of image not handled because of chunk size, to add
 % for reconstuction
-
-I_reconstructed(:,j+k:cols,:)=I(:,j+k:cols,:);
-I_reconstructed(i+k:rows,:,:)=I(i+k:rows,:,:);
+% 
+% I_reconstructed(:,j+k:cols,:)=I(:,j+k:cols,:);
+% I_reconstructed(i+k:rows,:,:)=I(i+k:rows,:,:);
  
 figure;
 subplot(1,2,1),imshow(uint8(I)),title('Original image');

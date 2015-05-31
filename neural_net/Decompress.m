@@ -18,7 +18,7 @@ maxcols=I_comp.image_size{7};
 I_svd = I_comp.U * diag(I_comp.S) * I_comp.V';
 I_compressed = reassemble_patches(I_svd, I_comp.svdsize);
 
-I_reconstructed=uint8(zeros(rows,cols,colours));
+I_reconstructed=uint8(zeros(maxrows,maxcols,colours));
 
 %counter cell of compressed data
 counter_cell=1;
@@ -52,12 +52,16 @@ for c=1:colours
 end
 % add uncompressed rest of image not handled because of chunk size, to add
 % for reconstuction
+% 
+% I_reconstructed(:,j+k:cols,:)=I_comp.uncompressed_part{1};
+% I_reconstructed(i+k:rows,:,:)=I_comp.uncompressed_part{2};
 
-I_reconstructed(:,j+k:cols,:)=I_comp.uncompressed_part{1};
-I_reconstructed(i+k:rows,:,:)=I_comp.uncompressed_part{2};
+%crop paddding
+I_reconstructed=I_reconstructed(1:rows,1:cols,:);
 
-figure;
-title('Reconstructed image');
-imshow(uint8(I_reconstructed));
+figure
+imshow(uint8(I_reconstructed))
+title('Reconstructed image')
+
 
 I_rec = double(I_reconstructed);
