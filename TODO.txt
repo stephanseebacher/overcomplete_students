@@ -1,30 +1,50 @@
 == TODO list
 
-- Dynamic metrics
-	+ SVD
-	+ NN
-	+ Quantization
-	+ Parameters
+Code:
 
-- Optimization
-	+ NN and parameters (see also dynamic metrics)
+- Second baseline D
 
-- Write and improve paper
+- GPU for NN training Se
 
-- Second baseline
-
-- Code refactoring and comments
-	+ Meaningful variable names etc.
-
-- NN initialization and training
+- NN initialization and training D
 	+ separate training from compression (modular)
 	+ store default network
 
-- Entropy coding / Run length coding / arithmetic coding after quantization
 
-- Finish pipeline
-
-- Compare with baselines
-
-- Train NN with MANY images
+- Train NN with MANY images D
 	+ get large set of (training) images
+	
+- Dynamic metrics/ Paramter optimization 
+	+ SVD St
+	+ NN:
+	    - training params: St
+	    - hidden values
+	    - ..
+	+ Quantization D
+	+ Others:
+
+- Runtime Optimization:
+    - features extraction 
+    - Others-> D to point it out
+    - NN documentation 
+
+- Entropy coding / Run length coding / arithmetic coding after quantization Se
+
+- Finish pipeline:
+    - Decide SVD between/how to use both Quanitization St
+
+
+- Code refactoring and comments
+	+ Meaningful variable names etc.
+	
+ - Test with other pictures (diff from traing ones)
+ 
+
+%%%%%%%%%%%%%%%
+
+
+Paper:
+
+   - Compare with baselines
+   - Write and improve paper
+
