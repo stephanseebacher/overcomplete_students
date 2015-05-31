@@ -1,13 +1,15 @@
 function I_comp = Compress(I)
 
+%assume I between 0 and 255
+I=I*255;
 [rows,cols,colours]=size(I);
 %train on gray scale image if image is colored
 if (colours > 1) 
-    I_gray = double(rgb2gray(I)); 
+    I_gray = double(rgb2gray(uint8(I))); 
 else
-    I_gray=double(I);
+    I_gray=I;
 end
-I=double(I);
+
 %compression with neural net
 % choose training_samples kxk chunks unif at random to trian the nn
 k=8;
@@ -56,6 +58,7 @@ net.trainParam.time=20;
 [net,tr] = train(net,Data,Target_Data);
 nntraintool
 
+disp('Training Done.')
 net_enc=get_encoding_net(net,k,z);
 net_dec=get_decoding_net(net,k,z);
 
@@ -95,10 +98,17 @@ for c=1:colours
         end
         i_c=i_c+sqrt(z);
     end
+    disp(['Compressing of colour channel ' num2str(c) ' done.']);
 end
+
 figure;
-subplot(1,2,1),imshow(uint8(I)),title('Original image');
-subplot(1,2,2),imshow(uint8(I_compressed)),title('Compressed image');
+subplot(1,2,1);
+title('Original image');
+imshow(uint8(I));
+
+subplot(1,2,2);
+title('Compressed image');
+imshow(uint8(I_compressed));
 
 % SVD
 dsvd = 8;

@@ -15,8 +15,8 @@ maxrows=I_comp.image_size{6};
 maxcols=I_comp.image_size{7};
 
 % SVD
-I = I_comp.U * diag(I_comp.S) * I_comp.V';
-I_compressed = reassemble_patches(I, I_comp.svdsize);
+I_svd = I_comp.U * diag(I_comp.S) * I_comp.V';
+I_compressed = reassemble_patches(I_svd, I_comp.svdsize);
 
 I_reconstructed=uint8(zeros(rows,cols,colours));
 
@@ -48,6 +48,7 @@ for c=1:colours
         end
         i_c=i_c+sqrt(z);
     end
+    disp(['Decompressing of colour channel ' num2str(c) ' done.']);
 end
 % add uncompressed rest of image not handled because of chunk size, to add
 % for reconstuction
@@ -56,6 +57,7 @@ I_reconstructed(:,j+k:cols,:)=I_comp.uncompressed_part{1};
 I_reconstructed(i+k:rows,:,:)=I_comp.uncompressed_part{2};
 
 figure;
-imshow(uint8(I_reconstructed)),title('Reconstructed image');
+title('Reconstructed image');
+imshow(uint8(I_reconstructed));
 
-I_rec = I_reconstructed;
+I_rec = double(I_reconstructed);
