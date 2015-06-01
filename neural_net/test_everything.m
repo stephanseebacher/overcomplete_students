@@ -54,11 +54,12 @@ net.trainParam.time=45;
 [net,tr] = train(net,Data,Target_Data);
 nntraintool
 
+%%
 
 net_enc=get_encoding_net(net,k,z);
 net_dec=get_decoding_net(net,k,z);
 
-%%
+
 
 height = size(I, 1);
 width = size(I, 2);
