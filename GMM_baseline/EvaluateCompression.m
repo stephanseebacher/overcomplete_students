@@ -22,8 +22,7 @@ for i = 3:length(dir) % runing through the folder
     
     size_orig = whos('I'); % size of original image
     
-    n_clusters=25;
-    I_comp = Compress(I,n_clusters); % compress image
+    I_comp = Compress(I); % compress image
     I_rec = Decompress(I_comp); % decompress it
     
     % Measure approximation error

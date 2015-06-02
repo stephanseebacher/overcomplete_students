@@ -1,6 +1,10 @@
 function I_rec = Decompress(I_comp)
 
-tmp = I_comp.U * I_comp.Z;
+%decompress
+U = double(I_comp.U)/100;
+Z = double(I_comp.Z)/100;
+
+tmp = U * Z;
 raws= I_comp.raws;
 cols=I_comp.cols;
 
@@ -16,9 +20,9 @@ else
 end
 
 %show reconstructed image
-figure
-imshow(I_rec)
-title('Reconstructed image')
+% figure
+% imshow(I_rec)
+% title('Reconstructed image')
 
 
 

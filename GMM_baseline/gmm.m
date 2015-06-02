@@ -68,8 +68,7 @@ end
 % GMM algorithm
 while (change>threshold && iterations < maxIter),
     iterations = iterations+1;
-    disp(sprintf('Iterations = %d  Loglikelihood = %0.5g  Change = %0.5g.', ...
-                    iterations, loglike, change));
+%     disp(sprintf('Iterations = %d  Loglikelihood = %0.5g  Change = %0.5g.',iterations, loglike, change));
 
     % E-step: estimate responsibilities
     for k=1:nClusters
