@@ -14,7 +14,6 @@ end
 % choose training_samples kxk chunks unif at random to trian the nn
 k=8;
 
-
 maxrows=floor(rows/k)*k-k;
 maxcols=floor(cols/k)*k-k;
 
@@ -59,6 +58,7 @@ net.trainParam.time=20;
 nntraintool
 
 disp('Training Done.')
+
 net_enc=get_encoding_net(net,k,z);
 net_dec=get_decoding_net(net,k,z);
 

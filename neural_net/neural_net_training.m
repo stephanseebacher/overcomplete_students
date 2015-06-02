@@ -5,7 +5,7 @@
 %timing for everything
 tstart=tic;
 
-file_name='training_images';
+file_name='Training_Set';
 direc=dir(file_name);
 
 % get all images names
