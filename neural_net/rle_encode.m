@@ -1,4 +1,3 @@
-
 function rle_code = rle_encode(a)
 
 n = 1;
