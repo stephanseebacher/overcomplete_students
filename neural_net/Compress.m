@@ -95,7 +95,7 @@ I_compressed=double(zeros((maxrows/k)*sqrt(z),(maxcols/k)*sqrt(z),colours));
 %preallocate for speed up
 compressed_data=cell(colours*maxrows/k*maxcols/k,1);
 %counter cell array
-counter_cell=1;
+% counter_cell=1;
 % use 3 bit quantization
 quanitization_bits=3;
 

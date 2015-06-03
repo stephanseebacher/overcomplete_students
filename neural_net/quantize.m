@@ -10,7 +10,7 @@ end
 
 %now stores bit array in uint8 var
 
-quantized_data=uint8(zeros(1,ceil(length(x)*bit_number/8))); %8 because unit8 used!
+quantized_data=int8(zeros(1,ceil(length(x)*bit_number/8))); %8 because int8 used!
 i=1;
 %counter for uint8 vars used
 t=1;
