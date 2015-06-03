@@ -3,7 +3,7 @@
 %first create training data
 
 %timing for everything
-tstart=tic;
+ttrain=tic;
 
 file_name='Training_Set';
 direc=dir(file_name);
@@ -69,7 +69,7 @@ Target_Data=Data;
 % Training paramters
 %set particular training goal 
 %TODO: choose carefully
-net.trainParam.goal=0.01;
+net.trainParam.goal=0.001;
 %max iterations
 net.trainParam.epochs=4;
 %max training time in seconds
@@ -82,4 +82,6 @@ net.trainFcn ='trainoss'; % so far default used because faster
 [net,tr] = train(net,Data,Target_Data);
 nntraintool
 
-disp('Training Done.')
+%save the net at the end
+save('trained_net.mat', 'net');
+disp(['Training done in ' num2str(toc(ttrain))])
