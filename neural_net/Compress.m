@@ -37,9 +37,15 @@ end
 % compressed image afterwards
 z=36;
 %create net
-setdemorandstream(491218382) %used to avoid randomness, and get similar results after each training
+
+% setdemorandstream(491218382) %used to avoid randomness, and get similar results after each training
 %feedforwardnet very important! patternnet not working for example!
-net= feedforwardnet(z);
+% net= feedforwardnet(z);
+
+% use trained net instead of new one!
+load('trained_net.mat');
+display('Trained net loaded and ready for further optimization.')
+
 %target_data is equal to train_data
 Target_Data=Data;
 
@@ -48,7 +54,7 @@ Target_Data=Data;
 %TODO: choose carefully
 net.trainParam.goal=0.01;
 %max iterations
-net.trainParam.epochs=4;
+net.trainParam.epochs=100;
 %max training time in seconds
 net.trainParam.time=20; 
 
