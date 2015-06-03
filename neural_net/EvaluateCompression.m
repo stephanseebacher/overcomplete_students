@@ -71,3 +71,7 @@ disp(['Average compression rate: ' num2str(Result(2))])
 % Time for everything: 439.3128
 % Average quadratic error: 28476.6592
 % Average compression rate: 0.63438
+% 
+% Time for everything: 451.9379
+% Average quadratic error: 28445.217
+% Average compression rate: 0.65351
