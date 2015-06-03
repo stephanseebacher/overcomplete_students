@@ -14,12 +14,12 @@ end
 % choose training_samples kxk chunks unif at random to trian the nn
 k=8;
 
-
 maxrows=floor(rows/k)*k-k;
 maxcols=floor(cols/k)*k-k;
 
-Data=[];
 training_samples=300;
+Data=zeros(k*k,training_samples);
+
 %create training data
 for t=1:training_samples
     i=randi(maxrows);
@@ -30,14 +30,14 @@ for t=1:training_samples
     train_data=I_gray(i:i+k-1,j:j+k-1);
     
     %add to train data
-    Data=[Data  pixel_to_real( train_data )];
+    Data(:,t)= pixel_to_real( train_data );
 end
 
 % train neural net with z hidden layers z<k*k, better be power of 2 to show
 % compressed image afterwards
 z=36;
 %create net
-setdemorandstream(491218382)
+setdemorandstream(491218382) %used to avoid randomness, and get similar results after each training
 %feedforwardnet very important! patternnet not working for example!
 net= feedforwardnet(z);
 %target_data is equal to train_data
@@ -59,11 +59,13 @@ net.trainParam.time=20;
 nntraintool
 
 disp('Training Done.')
+
 net_enc=get_encoding_net(net,k,z);
 net_dec=get_decoding_net(net,k,z);
 
 %now encode all the image
 
+%get image info % and adapt it to image depending on k
 height = size(I, 1);
 width = size(I, 2);
 w_rest=mod(width,k);
@@ -86,44 +88,80 @@ end
 maxrows=height;
 maxcols=width;
  
-I_compressed=double(zeros((maxrows/k +1)*sqrt(z),(maxcols/k +1 )*sqrt(z),colours));
+I_compressed=double(zeros((maxrows/k)*sqrt(z),(maxcols/k)*sqrt(z),colours));
 % use trained net to reconstuct each k*k chunk in data
 %compressed and quantized data
-compressed_data={};
+
+%preallocate for speed up
+compressed_data=cell(colours*maxrows/k*maxcols/k,1);
 %counter cell array
-counter_cell=1;
+% counter_cell=1;
 % use 3 bit quantization
 quanitization_bits=3;
 
-for c=1:colours
-    i_c=1;
-    for i=1:k:maxrows
-        j_c=1;
-        for j=1:k:maxcols
-            %extract kxk chunk
-            x=I(i:i+k-1,j:j+k-1,c);
-            %transform kxk chunk to real valued data
-            x=pixel_to_real(x);
+%TODO_OPT: These for-loops are the main runtime bottleneck
+%idea: reshape and execute
+% 
+% for c=1:colours
+%     i_c=1;
+%     for i=1:k:maxrows
+%         j_c=1;
+%         for j=1:k:maxcols
+%             %extract kxk chunk
+%             x=I(i:i+k-1,j:j+k-1,c);
+%             %transform kxk chunk to real valued data
+%             x=pixel_to_real(x);
+% 
+%             %use net to compress
+%             comp_x=net_enc(x);
+%             
+%             %quanitize data for much compression to
+%             quantized_data=quantize(comp_x,quanitization_bits);
+%             compressed_data{counter_cell}=quantized_data;
+%             counter_cell=counter_cell+1;
+%             %compute compressed image
+%             %reshape data
+%             comp_x=reshape(comp_x,sqrt(z),sqrt(z));
+%             %set compressed image to computed values
+%             I_compressed(i_c:i_c+sqrt(z)-1,j_c:j_c+sqrt(z)-1,c)=double(comp_x);
+%             j_c=j_c+sqrt(z);
+%         end
+%         i_c=i_c+sqrt(z);
+%     end
+%     disp(['Compressing of colour channel ' num2str(c) ' done.']);
+% end
 
-            %use net to compress
-            comp_x=net_enc(x);
-            
-            %quanitize data for much compression to
-            quantized_data=quantize(comp_x,quanitization_bits);
-            compressed_data{counter_cell}=quantized_data;
-            counter_cell=counter_cell+1;
-            %compute compressed image
-            %reshape data
-            comp_x=reshape(comp_x,sqrt(z),sqrt(z));
-            %set compressed image to computed values
-            I_compressed(i_c:i_c+sqrt(z)-1,j_c:j_c+sqrt(z)-1,c)=double(comp_x);
-            j_c=j_c+sqrt(z);
-        end
-        i_c=i_c+sqrt(z);
+tmp_I_compressed=double(zeros(z,maxrows/k * maxcols/k,colours));
+%optimized version
+for c=1:colours
+    I_reshaped=reshape(I(:,:,c),[k*k,maxrows/k*maxcols/k]);
+    
+    for i=1:size(I_reshaped,2)
+        %extract kxk chunk
+        x=I_reshaped(:,i);
+        %transform kxk chunk to real valued data
+        x=pixel_to_real(x);
+
+        %use net to compress
+        comp_x=net_enc(x);
+
+        %quanitize data for much compression to
+        quantized_data=quantize(comp_x,quanitization_bits);
+        compressed_data{i+(c-1)*size(I_reshaped,2)}=quantized_data;
+
+        %compute compressed image
+        %set compressed image to computed values
+        tmp_I_compressed(:,i,c)=double(comp_x);
     end
+    
     disp(['Compressing of colour channel ' num2str(c) ' done.']);
+    
 end
 
+%reshape compressed image
+for c=1:colours
+    I_compressed(:,:,c)=reshape(tmp_I_compressed(:,:,c),[(maxrows/k)*sqrt(z),(maxcols/k)*sqrt(z)]);
+end
 figure
 subplot(1,2,1)
 imshow(uint8(I))
@@ -131,7 +169,7 @@ title('Original image')
 
 
 subplot(1,2,2)
-imshow(uint8(I_compressed))
+imshow(double(I_compressed))
 title('Compressed image')
 
 

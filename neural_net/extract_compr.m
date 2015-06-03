@@ -7,7 +7,7 @@ j=1;
 i=0;
 %actual bits read for next decoded value
 bits_read='';
-while (i<=number_bits)
+while (i<number_bits)
     %read next int from compressed_data
     current_c=compressed_data(j);
     j=j+1;
