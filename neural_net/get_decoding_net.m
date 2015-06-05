@@ -3,12 +3,17 @@ function [ net_dec ] = get_decoding_net(net,k,z)
 %   Detailed explanation goes here
 
 net_dec=network;
+
 net_dec.numInputs=1;
 net_dec.numLayers=1;
 net_dec.outputConnect=[1];
 net_dec.inputConnect=[1];
 net_dec.biasConnect=[1];
 
+%configure output processing
+load('Data.mat');
+net_dec=configure(net_dec,'outputs',Data(:,1));
+net_dec.outputs{1}.processFcns={'mapminmax'};
 
 %network built, now set weights
 

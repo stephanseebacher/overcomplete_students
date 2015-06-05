@@ -116,7 +116,7 @@ end
 % add uncompressed rest of image not handled because of chunk size, to add
 % for reconstuction
 subplot(1,2,1),imshow(uint8(I)),title('Original image');
-subplot(1,2,2),imshow(I_compressed),title('Compressed image');
+subplot(1,2,2),imshow(double(I_compressed)),title('Compressed image');
 
 %%
 
