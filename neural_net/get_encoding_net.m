@@ -1,4 +1,4 @@
-function [ net_enc ] = get_encoding_net( net,k,z)
+function [ net_enc ] = get_encoding_net( net,k,z,data_configure)
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
 net_comp=network;
@@ -11,8 +11,7 @@ net_comp.biasConnect=[1];
 
 
 %configure input processing
-load('Data.mat');
-net_comp=configure(net_comp,'inputs',Data(:,1));
+net_comp=configure(net_comp,'inputs',data_configure);
 
 %add process function of inputs
 net_comp.inputs{1}.processFcns={'mapminmax'};

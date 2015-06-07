@@ -44,6 +44,7 @@ z=36;
 
 % use trained net instead of new one!
 load('trained_net.mat');
+% load('net_castle_20_iteration');
 display('Trained net loaded and ready for further optimization.')
 
 %target_data is equal to train_data
@@ -52,22 +53,26 @@ Target_Data=Data;
 % Training paramters
 %set particular training goal 
 %TODO: choose carefully
-net.trainParam.goal=0.01;
+net.trainParam.goal=0.001;
 %max iterations
-net.trainParam.epochs=100;
+net.trainParam.epochs=4;
 %max training time in seconds
 net.trainParam.time=20; 
 
 % set trainging function
 % net.trainFcn ='trainlm'; % so far default used because faster
 
-[net,tr] = train(net,Data,Target_Data);
+[net,~] = train(net,Data,Target_Data);
 nntraintool
 
 disp('Training Done.')
 
-net_enc=get_encoding_net(net,k,z);
-net_dec=get_decoding_net(net,k,z);
+%choose configuration data randomly
+i=randi(size(Data,2));
+j=randi(size(Target_Data,2));
+
+net_enc=get_encoding_net(net,k,z,Data(:,i));
+net_dec=get_decoding_net(net,k,z,Target_Data(:,j));
 
 %now encode all the image
 
@@ -106,7 +111,7 @@ compressed_data=cell(colours*maxrows/k*maxcols/k,1);
 %counter cell array
 counter_cell=1;
 % use 3 bit quantization
-quanitization_bits=;
+quanitization_bits=3;
 
 %TODO_OPT: These for-loops are the main runtime bottleneck
 %idea: reshape and execute
@@ -185,22 +190,22 @@ title('Compressed image')
 
 
 % SVD
-dsvd = 8;
-Isvd = extract_patches(I_compressed, dsvd);
-[Usvd, Ssvd, Vsvd] = svd( Isvd );
-% percent singular values considered
-prct_singval=0.6;
-ksvd = round(rank( Isvd ) * prct_singval);
-
-I_comp.svdsize = size(I_compressed);
-I_comp.U = Usvd(:, 1:ksvd);
-I_comp.S = diag(Ssvd(1:ksvd, 1:ksvd));
-I_comp.V = Vsvd(:, 1:ksvd);
+% dsvd = 8;
+% Isvd = extract_patches(I_compressed, dsvd);
+% [Usvd, Ssvd, Vsvd] = svd( Isvd );
+% % percent singular values considered
+% prct_singval=0.6;
+% ksvd = round(rank( Isvd ) * prct_singval);
+% 
+% I_comp.svdsize = size(I_compressed);
+% I_comp.U = Usvd(:, 1:ksvd);
+% I_comp.S = diag(Ssvd(1:ksvd, 1:ksvd));
+% I_comp.V = Vsvd(:, 1:ksvd);
 
 % I_comp.I = I_compressed;
 
 I_comp.compressed_data=compressed_data;
-I_comp.number_bits=quanitization_bits*z;
+I_comp.number_bits_encoded=quanitization_bits*z;
 I_comp.quanitization_bits=quanitization_bits;
 I_comp.net_dec = net_dec;
 % add uncompressed rest of image not handled because of chunk size, to add

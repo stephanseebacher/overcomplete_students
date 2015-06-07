@@ -66,18 +66,20 @@ net= feedforwardnet(z);
 %target_data is equal to train_data
 Target_Data=Data;
 
-% Training paramters
-%set particular training goal 
-%TODO: choose carefully
-net.trainParam.goal=0.001;
-%max iterations
-net.trainParam.epochs=4;
-%max training time in seconds
-net.trainParam.time=20; 
-
 % set trainging function
 % befaure 'trainlm' used but problem with memory managment!
 net.trainFcn ='trainoss'; % so far default used because faster
+
+% Training paramters
+%set particular training goal 
+%TODO: choose carefully
+net.trainParam.goal=0.00001;
+%max iterations
+net.trainParam.epochs=5000;
+%max training time in seconds
+net.trainParam.time=600; 
+
+
 
 [net,tr] = train(net,Data,Target_Data);
 nntraintool

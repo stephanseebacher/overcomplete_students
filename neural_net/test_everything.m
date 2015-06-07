@@ -5,6 +5,7 @@ I=imread('1.jpg');
 %train on gray scale image
 I_gray = double(rgb2gray(I)); 
 I=double(I);
+I_init=I/255;
 
 %compression with neural net
 % choose training_samples kxk chunks unif at random to trian the nn
@@ -42,11 +43,11 @@ Target_Data=Data;
 % Training paramters
 %set particular training goal 
 %TODO: choose carefully
-net.trainParam.goal=0.01;
+net.trainParam.goal=0.00001;
 %max iterations
-net.trainParam.epochs=8;
+net.trainParam.epochs=20;
 %max training time in seconds
-net.trainParam.time=45; 
+net.trainParam.time=405; 
 
 % set trainging function
 % net.trainFcn ='trainlm'; % so far default used because faster
@@ -56,8 +57,12 @@ nntraintool
 
 %%
 
-net_enc=get_encoding_net(net,k,z);
-net_dec=get_decoding_net(net,k,z);
+%choose configuration data randomly
+i=randi(size(Data,2));
+j=randi(size(Target_Data,2));
+
+net_enc=get_encoding_net(net,k,z,Data(:,i));
+net_dec=get_decoding_net(net,k,z,Target_Data(:,j));
 
 
 
@@ -112,6 +117,7 @@ for c=1:3
         end
         i_c=i_c+sqrt(z);
     end
+    disp(['Compressing of colour channel ' num2str(c) ' done.']);
 end
 % add uncompressed rest of image not handled because of chunk size, to add
 % for reconstuction
@@ -141,6 +147,7 @@ for c=1:3
         end
         i_c=i_c+sqrt(z);
     end
+    disp(['Decompressing of colour channel ' num2str(c) ' done.']);
 end
 % add uncompressed rest of image not handled because of chunk size, to add
 % for reconstuction
@@ -151,3 +158,6 @@ end
 figure;
 subplot(1,2,1),imshow(uint8(I)),title('Original image');
 subplot(1,2,2),imshow(uint8(I_reconstructed)),title('Reconstructed image');
+
+I_reconstructed=I_reconstructed/255;
+display([ 'error: '  num2str(mean(mean(mean( ((I_init - I_reconstructed(1:rows,1:cols,:)) ).^2))))]);

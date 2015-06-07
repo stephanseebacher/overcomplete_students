@@ -2,7 +2,7 @@ function I_rec = Decompress(I_comp)
 
 %read data for recontruction
 % I_compressed=double(I_comp.I);
-number_bits=I_comp.number_bits;
+number_bits_encoded=I_comp.number_bits_encoded;
 quanitization_bits=I_comp.quanitization_bits;
 compressed_data=I_comp.compressed_data;
 rows=I_comp.image_size{1};
@@ -14,9 +14,9 @@ z=I_comp.image_size{5};
 maxrows=I_comp.image_size{6};
 maxcols=I_comp.image_size{7};
 
-% SVD
-I_svd = I_comp.U * diag(I_comp.S) * I_comp.V';
-I_compressed = reassemble_patches(I_svd, I_comp.svdsize);
+% % SVD
+% I_svd = I_comp.U * diag(I_comp.S) * I_comp.V';
+% I_compressed = reassemble_patches(I_svd, I_comp.svdsize);
 
 I_reconstructed=uint8(zeros(maxrows,maxcols,colours));
 
@@ -39,13 +39,23 @@ for c=1:colours
             counter_cell=counter_cell+1;
             %decode quantized data
 
-            x=extract_compr(actual_compr,number_bits,quanitization_bits);
+            x=extract_compr(actual_compr,number_bits_encoded,quanitization_bits);
 
             %use net to decompress data
             decomp_x=net_dec(x(:));
 
             %transform back real valued data to k x k chunk and
             decomp_x=real_to_pixel(decomp_x,k);
+            
+            
+            %set reconstructed patch to mean of reconstructed values
+%             decomp_x_mean=ones(size(decomp_x))*mean(mean(decomp_x));
+            
+            %apply gaussian filter on patch
+%             decomp_x_gauss=decomp_x;
+%             h = fspecial('gaussian',5);
+%             decomp_x_gauss=imfilter(decomp_x_gauss,h,'replicate');
+            
             %set reconstructed image to computed values
             I_reconstructed(i:i+k-1,j:j+k-1,c)=uint8(decomp_x);
             j_c=j_c+sqrt(z);
@@ -89,8 +99,8 @@ end
 I_reconstructed=I_reconstructed(1:rows,1:cols,:);
 
 figure
-imshow(uint8(I_reconstructed))
+imshow(uint8(I_reconstructed));
 title('Reconstructed image')
 
 
-I_rec = double(I_reconstructed);
+I_rec = double(I_reconstructed)/255;

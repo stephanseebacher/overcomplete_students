@@ -44,7 +44,10 @@ for i = 3:length(dir) % runing through the folder
     % Measure compression rate
     size_comp = whos('I_comp'); % size of compresseed image
     
-    Comp_rates(k) = size_comp.bytes / size_orig.bytes; 
+    Comp_rates(k) = size_comp.bytes / size_orig.bytes;
+    
+    disp(['quadratic error of current image: ' num2str(Errors(k))])
+    disp(['compression rate of current image: ' num2str( Comp_rates(k))])
     
     k = k+1;
     
@@ -75,3 +78,37 @@ disp(['Average compression rate: ' num2str(Result(2))])
 % Time for everything: 451.9379
 % Average quadratic error: 28445.217
 % Average compression rate: 0.65351
+% 
+% Time for everything: 458.6385
+% Average quadratic error: 29311.4582
+% Average compression rate: 0.65666
+
+% with quanitzization=14 and no svd 
+% Time for everything: 1546.4246
+% Average quadratic error: 28242.283
+% Average compression rate: 0.39443
+
+% Quanitizaiton 3 with trained_net on 100+ images
+% Time for everything: 444.938
+% Average quadratic error: 0.024012
+% Average compression rate: 0.27866
+
+% Quanitizaiton 3 with net_castle_20_iteration
+% Time for everything: 532.0234
+% Average quadratic error: 0.045942
+% Average compression rate: 0.27866
+
+% Quanitizaiton 3 with trained_net on 100+ images trained for longer time
+% Time for everything: 439.1995
+% Average quadratic error: 0.029787
+% Average compression rate: 0.27866
+
+% with modif on quanitize function
+% Time for everything: 443.3492
+% Average quadratic error: 0.013465
+% Average compression rate: 0.27866
+
+% 
+% Time for everything: 427.6279
+% Average quadratic error: 0.013461
+% Average compression rate: 0.27866
