@@ -12,7 +12,14 @@ end
 
 %compression with neural net
 % choose training_samples kxk chunks unif at random to trian the nn
-k=8;
+k=6;
+
+% train neural net with z hidden values z<k*k, better be power of 2 to show
+% compressed image afterwards
+z=4;
+
+% Number of bits for quanitization
+quanitization_bits=3;
 
 maxrows=floor(rows/k)*k-k;
 maxcols=floor(cols/k)*k-k;
@@ -33,9 +40,7 @@ for t=1:training_samples
     Data(:,t)= pixel_to_real( train_data );
 end
 
-% train neural net with z hidden layers z<k*k, better be power of 2 to show
-% compressed image afterwards
-z=36;
+
 %create net
 
 % setdemorandstream(491218382) %used to avoid randomness, and get similar results after each training
@@ -43,7 +48,7 @@ z=36;
 % net= feedforwardnet(z);
 
 % use trained net instead of new one!
-load('trained_net.mat');
+load(['trained_net_k_' num2str(k) '_z_' num2str(z) '.mat']);
 % load('net_castle_20_iteration');
 display('Trained net loaded and ready for further optimization.')
 
@@ -55,9 +60,9 @@ Target_Data=Data;
 %TODO: choose carefully
 net.trainParam.goal=0.001;
 %max iterations
-net.trainParam.epochs=4;
+net.trainParam.epochs=30;
 %max training time in seconds
-net.trainParam.time=20; 
+net.trainParam.time=25; 
 
 % set trainging function
 % net.trainFcn ='trainlm'; % so far default used because faster
@@ -107,15 +112,11 @@ I_compressed=double(zeros((maxrows/k +1)*sqrt(z),(maxcols/k +1 )*sqrt(z),colours
 %compressed and quantized data
 
 %preallocate for speed up
-compressed_data=cell(colours*maxrows/k*maxcols/k,1);
+compressed_data=int8(zeros(ceil(z*quanitization_bits/8),colours*maxrows/k*maxcols/k)); %e because then stored in 8 bit array in quanitiation
 %counter cell array
 counter_cell=1;
-% use 3 bit quantization
-quanitization_bits=3;
 
-%TODO_OPT: These for-loops are the main runtime bottleneck
-%idea: reshape and execute
-% 
+ 
 for c=1:colours
     i_c=1;
     for i=1:k:maxrows
@@ -131,7 +132,7 @@ for c=1:colours
             
             %quanitize data for much compression to
             quantized_data=quantize(comp_x,quanitization_bits);
-            compressed_data{counter_cell}=quantized_data;
+            compressed_data(:,counter_cell)=quantized_data;
             counter_cell=counter_cell+1;
             %compute compressed image
             %reshape data

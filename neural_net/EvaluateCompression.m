@@ -62,19 +62,12 @@ disp(['Time for everything: ' num2str(time_for_everything)])
 disp(['Average quadratic error: ' num2str(Result(1))])
 disp(['Average compression rate: ' num2str(Result(2))])
 
-%%
-% % result with k=8 z=36 and 4 iter (mean)
-% Average quadratic error: 20.8172
-% Average compression rate: 4.8866
 
+%%
 % with SVD and Quanitization
 % Average quadratic error: 25656.004
 % Average compression rate: 0.64525
-% 
-% Time for everything: 439.3128
-% Average quadratic error: 28476.6592
-% Average compression rate: 0.63438
-% 
+
 % Time for everything: 451.9379
 % Average quadratic error: 28445.217
 % Average compression rate: 0.65351
@@ -83,10 +76,7 @@ disp(['Average compression rate: ' num2str(Result(2))])
 % Average quadratic error: 29311.4582
 % Average compression rate: 0.65666
 
-% with quanitzization=14 and no svd 
-% Time for everything: 1546.4246
-% Average quadratic error: 28242.283
-% Average compression rate: 0.39443
+% no svd 
 
 % Quanitizaiton 3 with trained_net on 100+ images
 % Time for everything: 444.938
@@ -112,3 +102,45 @@ disp(['Average compression rate: ' num2str(Result(2))])
 % Time for everything: 427.6279
 % Average quadratic error: 0.013461
 % Average compression rate: 0.27866
+
+% k=12 and z=36
+% Time for everything: 198.5396
+% Average quadratic error: 0.034515
+% Average compression rate: 0.15565
+
+% k=12 and z=49
+% Time for everything: 225.7273
+% Average quadratic error: 0.050408
+% Average compression rate: 0.16792
+
+% Best results so far. Training has an uttermost importance! Here trained for 10 mins
+% k=12 and z=49
+% Time for everything: 229.8597
+% Average quadratic error: 0.018115
+% Average compression rate: 0.16792
+
+% very good quality but worse compression
+% k=7 and z=16
+% Time for everything: 407.8483
+% Average quadratic error: 0.0087692
+% Average compression rate: 0.32517
+
+% k=6, z=4 ; 3 bit qanitization
+% Time for everything: 442.6109
+% Average quadratic error: 0.0052875
+% Average compression rate: 0.41558
+
+% From Now: Big Modif: int8 array used instead of
+% cell array!!
+
+% k=6, z=4 ; 2 bit qanitization and 
+% Time for everything: 428.3418
+% Average quadratic error: 0.01186
+% Average compression rate: 0.019663
+% ratio: 1.6579
+
+% k=6, z=4 ; 3 bit qanitization
+% Time for everything: 438.1732
+% Average quadratic error: 0.0053232
+% Average compression rate: 0.023166
+% ratio: 4.3519

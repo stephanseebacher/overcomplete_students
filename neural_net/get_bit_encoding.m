@@ -19,7 +19,7 @@ idx=idx-1;
 % end
 
 %special case
-if (x==1)
+if (idx == 2^qunanitization_bits)
     idx=idx-1;
 end
 

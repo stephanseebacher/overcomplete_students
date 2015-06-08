@@ -12,7 +12,10 @@ direc=dir(file_name);
 images_names={direc.name};
 
 % choose  chunks size
-k=8;
+k=6;
+% train neural net with z hidden layers z<k*k, better be power of 2 to show
+% compressed image afterwards
+z=4;
 
 %number of training samples per image
 training_samples=100;
@@ -56,11 +59,9 @@ end
 
 %%
 
-% train neural net with z hidden layers z<k*k, better be power of 2 to show
-% compressed image afterwards
-z=36;
+
 %create net
-setdemorandstream(491218382) %used to avoid slightly diff results every time it is run
+% setdemorandstream(491218382) %used to avoid slightly diff results every time it is run
 %feedforwardnet very important! patternnet not working for example!
 net= feedforwardnet(z);
 %target_data is equal to train_data
@@ -75,9 +76,9 @@ net.trainFcn ='trainoss'; % so far default used because faster
 %TODO: choose carefully
 net.trainParam.goal=0.00001;
 %max iterations
-net.trainParam.epochs=5000;
+net.trainParam.epochs=10000;
 %max training time in seconds
-net.trainParam.time=600; 
+net.trainParam.time=1800; 
 
 
 
@@ -85,5 +86,5 @@ net.trainParam.time=600;
 nntraintool
 
 %save the net at the end
-save('trained_net.mat', 'net');
+save(['trained_net_k_' num2str(k) '_z_' num2str(z) '.mat'], 'net');
 disp(['Training done in ' num2str(toc(ttrain))])

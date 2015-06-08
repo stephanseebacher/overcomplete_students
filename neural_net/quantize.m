@@ -1,16 +1,16 @@
-function [ quantized_data ] = quantize(x,bit_number)
+function [ quantized_data ] = quantize(x,quanitization_bits)
 %quantize input data using bit_number bits
 
-bit_array=char(zeros(length(x)*bit_number,1));
+bit_array=char(zeros(length(x)*quanitization_bits,1));
 j=1;
 for i=1:length(x)
-    bit_array(j:(j+bit_number-1))=get_bit_encoding(x(i),bit_number);
-    j=j+bit_number;
+    bit_array(j:(j+quanitization_bits-1))=get_bit_encoding(x(i),quanitization_bits);
+    j=j+quanitization_bits;
 end
 
 %now stores bit array in uint8 var
 
-quantized_data=int8(zeros(1,ceil(length(x)*bit_number/8))); %8 because int8 used!
+quantized_data=int8(zeros(1,ceil(length(x)*quanitization_bits/8))); %8 because int8 used!
 i=1;
 %counter for uint8 vars used
 t=1;

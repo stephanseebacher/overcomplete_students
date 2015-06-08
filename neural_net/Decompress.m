@@ -35,7 +35,7 @@ for c=1:colours
 %             if(counter_cell>2501)
 % %                 display('bug')
 %             end
-            actual_compr=compressed_data{counter_cell};
+            actual_compr=compressed_data(:,counter_cell);
             counter_cell=counter_cell+1;
             %decode quantized data
 
