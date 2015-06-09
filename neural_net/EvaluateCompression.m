@@ -48,6 +48,7 @@ for i = 3:length(dir) % runing through the folder
     
     disp(['quadratic error of current image: ' num2str(Errors(k))])
     disp(['compression rate of current image: ' num2str( Comp_rates(k))])
+    disp(['current ratio compression/error ' num2str( max(Errors(k),Comp_rates(k))/min(Errors(k),Comp_rates(k)))])
     
     k = k+1;
     
@@ -61,7 +62,7 @@ disp(['Time for everything: ' num2str(time_for_everything)])
 
 disp(['Average quadratic error: ' num2str(Result(1))])
 disp(['Average compression rate: ' num2str(Result(2))])
-
+disp(['Average ratio compression/error ' num2str( max(Result(1),Result(2))/min(Result(1),Result(2)))])
 
 %%
 % with SVD and Quanitization
@@ -144,3 +145,5 @@ disp(['Average compression rate: ' num2str(Result(2))])
 % Average quadratic error: 0.0053232
 % Average compression rate: 0.023166
 % ratio: 4.3519
+
+% k=6, z=4 ; 3 bit qanitization with net_decding optimization
