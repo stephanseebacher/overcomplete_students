@@ -1,9 +1,10 @@
 function [ net_dec ] = get_decoding_net_2(net_LW,net_b,k,z,data_configure)
-%UNTITLED2 Summary of this function goes here
-%   Detailed explanation goes here
+% Get the part of the network used for decoding given the weight and bias.
 
+% create network
 net_dec=network;
 
+% set network structure
 net_dec.numInputs=1;
 net_dec.numLayers=1;
 net_dec.outputConnect=[1];

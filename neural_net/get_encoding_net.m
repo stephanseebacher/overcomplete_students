@@ -1,8 +1,8 @@
 function [ net_enc ] = get_encoding_net( net,k,z,data_configure)
-%UNTITLED Summary of this function goes here
-%   Detailed explanation goes here
+% Get the part of the network net used for encoding.
 net_comp=network;
 
+% set the network structure manually
 net_comp.numInputs=1;
 net_comp.numLayers=1;
 net_comp.outputConnect=[1];
@@ -10,7 +10,7 @@ net_comp.inputConnect=[1];
 net_comp.biasConnect=[1];
 
 
-%configure input processing
+%configure input processing properly using sample data
 net_comp=configure(net_comp,'inputs',data_configure);
 
 %add process function of inputs
@@ -34,7 +34,5 @@ net_comp.layers{1}.transferFcn='tansig';
 net_comp.layers{1}.initFcn='initnw';
 net_enc=net_comp;
 
-
-% net_enc.inputs{1}.processSettings{1}=net.inputs{1}.processSettings{1};
 end
 

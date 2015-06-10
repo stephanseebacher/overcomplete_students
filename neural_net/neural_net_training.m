@@ -1,7 +1,7 @@
-% initial Neural Net Training
+% create initial neural net used during compression, by training a neural
+% net on more than 100 very different images.
 
 %first create training data
-
 %timing for everything
 ttrain=tic;
 
@@ -81,7 +81,7 @@ net.trainParam.epochs=10000;
 net.trainParam.time=1800; 
 
 
-
+% train network
 [net,tr] = train(net,Data,Target_Data);
 nntraintool
 

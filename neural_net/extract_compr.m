@@ -2,6 +2,7 @@ function [ extracted_data ] = extract_compr( compressed_data,number_bits_encoded
 % decode quanitized data into an array of double corresponding to decoded
 % unquanitized data.
 
+% preallocate extracted_data
 extracted_data=zeros(number_bits_encoded/quanitization_bits,1);
 %counter for int var in compressed_data
 j=1;

@@ -69,7 +69,9 @@ net.trainParam.time=25;
 % set trainging function
 % net.trainFcn ='trainlm'; % so far default used because faster
 
+%train initial network on the current image for better performance
 [net,~] = train(net,Data,Target_Data);
+% show tool
 nntraintool
 
 disp('Training Done.')
@@ -151,39 +153,6 @@ for c=1:colours
     end
     disp(['Compressing of colour channel ' num2str(c) ' done.']);
 end
-
-% tmp_I_compressed=double(zeros(z,maxrows/k * maxcols/k,colours));
-% %optimized version
-% for c=1:colours
-%     I_reshaped=reshape(I(:,:,c),[k*k,maxrows/k*maxcols/k]);
-%     
-%     for i=1:size(I_reshaped,2)
-%         %extract kxk chunk
-%         x=I_reshaped(:,i);
-%         %transform kxk chunk to real valued data
-%         x=pixel_to_real(x);
-% 
-%         %use net to compress
-%         comp_x=net_enc(x);
-% 
-%         %quanitize data for much compression to
-%         quantized_data=quantize(comp_x,quanitization_bits);
-%         compressed_data{i+(c-1)*size(I_reshaped,2)}=quantized_data;
-% 
-%         %compute compressed image
-%         %set compressed image to computed values
-%         tmp_I_compressed(:,i,c)=double(comp_x);
-%     end
-%     
-%     disp(['Compressing of colour channel ' num2str(c) ' done.']);
-%     
-% end
-% 
-% %reshape compressed image
-% for c=1:colours
-%     I_compressed(:,:,c)=reshape(tmp_I_compressed(:,:,c),[(maxrows/k)*sqrt(z),(maxcols/k)*sqrt(z)]);
-% end
-
 
 %show initial and compresed image in a plot
 figure
