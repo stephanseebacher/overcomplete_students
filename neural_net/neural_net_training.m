@@ -1,90 +1,78 @@
-% create initial neural net used during compression, by training a neural
-% net on more than 100 very different images.
+function [ ] = neural_net_training ( k, training_samples, z )
+% NEURAL_NET_TRAINING Initial neural net training function
+%   k = patch size
+%   z = amount of hidden layers in the neural network
 
-%first create training data
-%timing for everything
-ttrain=tic;
+% time it!
+ttrain = tic;
 
-file_name='Training_Set';
-direc=dir(file_name);
+%% SETTINGS + PARAMETERS --------------------------------------------------
+% where are the pictures?
+picutres_dir = 'Training_Set';
+trained_net = ['trained_net_k_' num2str(k) '_z_' num2str(z) '.mat'];
 
-% get all images names
-images_names={direc.name};
+% choose training_samples kxk chunks uniform at random to trian the nn
+% k = 8;
+% training_samples = 100;
 
-% choose  chunks size
-k=6;
 % train neural net with z hidden layers z<k*k, better be power of 2 to show
 % compressed image afterwards
-z=4;
+% z = 32;
 
-%number of training samples per image
-training_samples=100;
-
-Data=[];
-for i=3:size(images_names,2)
-    
-    current_image=double(imread([ file_name '/' images_names{i}]));
-    
-    [rows,cols,colours]=size(current_image);
-    
-    %train on gray scale image if image is colored
-    if (colours > 1) 
-        I_gray = double(rgb2gray(uint8(current_image))); 
-    else
-        I_gray=current_image;
-    end
-    
- 
-
-    maxrows=floor(rows/k)*k-k;
-    maxcols=floor(cols/k)*k-k;
-
-    %create training data
-    for t=1:training_samples
-        
-        % choose training_samples kxk chunks size unif at random to trian the nn
-        i=randi(maxrows);
-        j=randi(maxcols);
-
-
-        %extract kxk chunk
-        train_data=I_gray(i:i+k-1,j:j+k-1);
-
-        %add to train data
-        Data=[Data  pixel_to_real( train_data )];
-    end
-
-    
-end
-
-%%
-
-
-%create net
-% setdemorandstream(491218382) %used to avoid slightly diff results every time it is run
+%setdemorandstream(491218382) %used to avoid randomness, and get similar results after each training
 %feedforwardnet very important! patternnet not working for example!
-net= feedforwardnet(z);
-%target_data is equal to train_data
-Target_Data=Data;
-
-% set trainging function
-% befaure 'trainlm' used but problem with memory managment!
-net.trainFcn ='trainoss'; % so far default used because faster
+net = feedforwardnet( z );
 
 % Training paramters
-%set particular training goal 
-%TODO: choose carefully
-net.trainParam.goal=0.00001;
-%max iterations
-net.trainParam.epochs=10000;
-%max training time in seconds
-net.trainParam.time=1800; 
+%  set particular training goal
+%  TODO: choose carefully
+net.trainParam.goal = 0.00001;
+% max iterations
+net.trainParam.epochs = 10000;
+% max training time in seconds
+net.trainParam.time = 1800;
+% set training function
+%net.trainFcn = 'trainlm'; % so far default used because faster
+% before 'trainlm' used but problem with memory management!
+net.trainFcn = 'trainoss';
 
+%% TRAINING ---------------------------------------------------------------
 
-% train network
-[net,tr] = train(net,Data,Target_Data);
-nntraintool
+% first create training data
+direc = dir( picutres_dir );
 
-%save the net at the end
-save(['trained_net_k_' num2str(k) '_z_' num2str(z) '.mat'], 'net');
-disp(['Training done in ' num2str(toc(ttrain))])
+% get all images names
+images_names = { direc.name };
+
+% extract training data patches from image
+Data = [];
+for i = 3 : size( images_names, 2 )
+    current_image = double( imread( [ picutres_dir '/' images_names{ i }]));
+    Data = [Data get_training_data( current_image, k, training_samples )]; %#ok<AGROW>
+end
+
+Target_Data = Data;
+
+% train
+disp('Training...')
+[net, ~] = train( net, Data, Target_Data );
+%nntraintool
+
+% choose configuration data randomly
+i = randi( size( Data, 2 ));
+net_enc = get_encoding_net( net, k, z, Data( :, i )); %#ok<NASGU>
+
+% send decoding net data
+net_dec_LW = net.LW{ 2, 1 };
+net_dec_b = net.b{ 2, 1 };
+% choose configuration data randomly
+j = randi( size( Target_Data, 2 ));
+net_dec_configure_data = Target_Data( :, j );
+net_dec = { net_dec_LW, net_dec_b, net_dec_configure_data }; %#ok<NASGU>
+%net_dec = get_decoding_net( net, k, z ); %#ok<NASGU>
+
+% save the net at the end
+save( trained_net, 'net_enc', 'net_dec' );
+disp(['Training done in ' num2str( toc( ttrain )) ' seconds'])
+
+end

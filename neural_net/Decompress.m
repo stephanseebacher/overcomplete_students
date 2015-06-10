@@ -1,93 +1,37 @@
 function I_rec = Decompress(I_comp)
-%read compressed image
-% I_compressed=double(I_comp.I);
 
-% get compressed data
-compressed_data=I_comp.compressed_data;
+timeit = tic;
 
-% read image properties
-rows=I_comp.image_size{1};
-cols=I_comp.image_size{2};
-colours=I_comp.image_size{3};
-maxrows=I_comp.image_size{4};
-maxcols=I_comp.image_size{5};
-% read compression properties
-k=I_comp.comp_properties{1};
-z=I_comp.comp_properties{2};
-quanitization_bits=I_comp.comp_properties{3};
+%% INIT -------------------------------------------------------------------
+%read data for recontruction
+comp                = I_comp.compressed_data;
+patch_size          = I_comp.patch_size;
+hidden_layers       = I_comp.hidden_layers;
+q_bits              = I_comp.q_bits;
 
-% compute then number of bits encoded per patch
-number_bits_encoded=z*quanitization_bits;
+number_bits_encoded = hidden_layers * q_bits;
 
 % get decoding net data
-net_dec_LW=I_comp.net_dec_data{1};
-net_dec_b=I_comp.net_dec_data{2};
-net_dec_configure_data=I_comp.net_dec_data{3};
-% get decoding net using this info
-net_dec=get_decoding_net_2(net_dec_LW,net_dec_b,k,z,net_dec_configure_data);
-% net_dec=I_comp.net_dec;
+net_dec_data        = I_comp.net_dec;
+net_dec             = get_decoding_net_2( ...
+                        net_dec_data{ 1 }, ...
+                        net_dec_data{ 2 }, ...
+                        patch_size, hidden_layers, ...
+                        net_dec_data{ 3 });
 
+%% RECONSTRUCT & DECOMPRESS -----------------------------------------------
 
-% SVD
-% I_svd = I_comp.U * diag(I_comp.S) * I_comp.V';
-% I_compressed = reassemble_patches(I_svd, I_comp.svdsize);
+Id = zeros( patch_size^2, size( comp, 2 ));
 
-% preallocate reconstructed image
-% I_reconstructed=uint8(zeros(maxrows,maxcols,colours));
-I_reconstructed=double(zeros(maxrows,maxcols,colours));
-
-
-%counter cell of compressed data
-counter_cell=1;
-% use trained net to reconstuct each k*k chunk in data
-for c=1:colours
-    % variable used for image reconstruction
-    i_c=1;
-    for i=1:k:maxrows
-        % variable used for image reconstruction
-        j_c=1;
-        for j=1:k:maxcols
-            %extract squrt(z)x sqrt(z) chunk of compressed image
-%             x=I_compressed(i_c:i_c+sqrt(z)-1,j_c:j_c+sqrt(z)-1,c);
-            
-            %get current compressed quanitized data
-            actual_compr=compressed_data(:,counter_cell);
-            counter_cell=counter_cell+1;
-            %decode quantized data
-            x=extract_compr(actual_compr,number_bits_encoded,quanitization_bits);
-
-            %use net to decompress data
-            decomp_x=net_dec(x(:));
-
-            %transform back real valued data to k x k chunk and
-            decomp_x=real_to_pixel(decomp_x,k);
-            
-            
-            %set reconstructed patch to mean of reconstructed values
-%           decomp_x_mean=ones(size(decomp_x))*mean(mean(decomp_x));
-            
-            %apply gaussian filter on patch
-%           decomp_x_gauss=decomp_x;
-%           h = fspecial('gaussian',5);
-%           decomp_x_gauss=imfilter(decomp_x_gauss,h,'replicate');
-            
-            %set reconstructed image to computed values
-            I_reconstructed(i:i+k-1,j:j+k-1,c)=double(decomp_x);
-            j_c=j_c+sqrt(z);
-        end
-        i_c=i_c+sqrt(z);
-    end
-    disp(['Decompressing of colour channel ' num2str(c) ' done.']);
+for i = 1 : size( comp, 2 )
+    inflate = extract_compr( comp( :, i ), number_bits_encoded, q_bits);
+    Id( :, i ) = real_to_pixel( net_dec( inflate ));
 end
 
 
-%crop paddding
-I_reconstructed=I_reconstructed(1:rows,1:cols,:);
+I_rec = reassemble_patches( Id, I_comp.image_size );
+I_rec = I_rec / 255;
 
-%show reconstructed image
-figure
-imshow(uint8(I_reconstructed));
-title('Reconstructed image')
+disp(['Decompression time: ' num2str( toc( timeit ))])
 
-% scale back reconstructed image to exepcted range values
-I_rec = double(I_reconstructed)/255;
+end % Decompress
