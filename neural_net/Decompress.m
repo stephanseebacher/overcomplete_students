@@ -1,6 +1,6 @@
-function I_rec = Decompress(I_comp)
+function [ I_rec ] = Decompress( I_comp )
 
-timeit = tic;
+%timeit = tic;
 
 %% INIT -------------------------------------------------------------------
 %read data for recontruction
@@ -32,6 +32,6 @@ end
 I_rec = reassemble_patches( Id, I_comp.image_size );
 I_rec = I_rec / 255;
 
-disp(['Decompression time: ' num2str( toc( timeit ))])
+%disp(['Decompression time: ' num2str( toc( timeit ))])
 
 end % Decompress

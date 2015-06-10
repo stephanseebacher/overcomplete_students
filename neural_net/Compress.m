@@ -1,4 +1,4 @@
-function I_comp = Compress(I)
+function [ I_comp ] = Compress( I )
 % Compression with neural networks
 
 %timeit = tic;
@@ -35,7 +35,7 @@ q_bits = 3;
 
 % images fixes include row and column padding and converting the values
 %   to pixel values (1..255)
-I = fix_image( I, patch_size );
+If = fix_image( I, patch_size );
 
 %% TRAINING ---------------------------------------------------------------
 
@@ -68,7 +68,7 @@ display('Trained net loaded and ready for further optimization.')
 % now encode the image
 
 % extract patches
-Ie = extract_patches( I, patch_size );
+Ie = extract_patches( If, patch_size );
 
 q_size1 = ceil( hidden_layers * q_bits  / 8 );
 Iq = int8( zeros( q_size1, size( Ie, 2 )));
