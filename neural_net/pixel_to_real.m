@@ -1,9 +1,6 @@
-function [ train_data ] = pixel_to_real( train_data )
-%convert train_data sub image with values between 0 and 255 into vector of real values between -1 and 1.
-    
-    %vectorized it
-    train_data=train_data(:);
-    train_data=train_data*(2/255)- ones(length(train_data),1);
-
+function [ data ] = pixel_to_real ( data )
+%PIXEL_TO_REAL Convert pixel values (1..255) to real values (-1..1)
+%   and return as a vector
+    data = -1 + data(:) * 2/255;
 end
 
