@@ -27,7 +27,7 @@
 
 \section{Introduction}
 
-
+In this paper we present a novel solution for image compression, which is based on neural networks. 
 
 \section{The Structure of a Paper}
 \label{sec:structure-paper}
@@ -109,40 +109,20 @@ We tested the compression algorithm with 100 images which were not in the traini
 Figure~\ref{fig:compare_images} shows an example image before any compression on the left and the reconstructed image after compression on the right. 
 
 
-
+\subsection{Comparison to Baselines}
 
 \section{Discussion}
 
-We also tried to apply SVD on the image and then compress the U and V matrices with our neural network. The training had to be adapted. But the decompressed U and V matrices looked very different than the original ones. \newline
+We also tried to apply SVD on the image and then compress the U and V matrices with our neural network. The training had to be adapted. But the decompressed U and V matrices looked very different than the original ones. This affected the reconstructed image and gave a bad mean error.\newline
 
 Strengths: Mean error, Compression rate. \newline
 Weakness: Time
 
 
-\section{Computational Intelligence Laboratory Requirements}
-\label{sec:cil}
-\subsection{Developing a Novel Solution}
-
-\subsection{Comparison to Baselines}
-
-\subsection{Write Up}
 
 
-
-\subsubsection{Installation}
-
-\subsubsection{Compiling \LaTeX{}}
-
-\subsubsection{Equations}
-
-\subsubsection{Tables and Figures}
-
-\subsection{Grading}
-
-\section{Summary}
-
-\section*{Acknowledgements}
-
+\section{Related Work}
+WICHTIG: Was machen wir anders als die?
 
 \bibliographystyle{IEEEtran}
 \bibliography{howto-paper}
