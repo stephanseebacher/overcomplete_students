@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2015.5.29)  12 JUN 2015 17:51
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2015.5.29)  12 JUN 2015 17:57
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -206,25 +206,25 @@ e
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <14> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 19.
 
-(./Introduction.tex) (./Preliminaries.tex
-<nnStructure.png, id=1, 410.53375pt x 249.93375pt>
+(./Abstract.tex) (./Introduction.tex) (./PaperStructure.tex)
+(./Preliminaries.tex <nnStructure.png, id=1, 410.53375pt x 249.93375pt>
 File: nnStructure.png Graphic file (type png)
- <use nnStructure.png>
+
+<use nnStructure.png>
 Package pdftex.def Info: nnStructure.png used on input line 12.
 (pdftex.def)             Requested size: 243.91125pt x 148.49313pt.
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <7> on input line 23.
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <5> on input line 23.
-
-<bpQuantizer.png, id=2, 408.52625pt x 217.81375pt>
+ <bpQuantizer.png, id=2, 408.52625pt x 217.81375pt>
 File: bpQuantizer.png Graphic file (type png)
- <use bpQuantizer.png>
+
+<use bpQuantizer.png>
 Package pdftex.def Info: bpQuantizer.png used on input line 30.
 (pdftex.def)             Requested size: 243.91125pt x 130.04779pt.
-)
-(./Compression.tex [1{/usr/local/texlive/2014/texmf-var/fonts/map/pdftex/updmap
-/pdftex.map}
+) (./Compression.tex [1{/usr/local/texlive/2014/texmf-var/fonts/map/pdftex/updm
+ap/pdftex.map}
 
 
  <./nnStructure.png>]) (./Results.tex
@@ -295,10 +295,10 @@ LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
  ) 
 Here is how much of TeX's memory you used:
- 2284 strings out of 493117
- 36536 string characters out of 6135433
+ 2289 strings out of 493117
+ 36604 string characters out of 6135433
  100068 words of memory out of 5000000
- 5727 multiletter control sequences out of 15000+600000
+ 5726 multiletter control sequences out of 15000+600000
  33555 words of font info for 63 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  37i,11n,23p,862b,287s stack positions out of 5000i,500n,10000p,200000b,80000s
