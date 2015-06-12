@@ -42,6 +42,7 @@ Inspired by biological nervous systems, such as the human brain, artificial neur
 \\
 wieso verwendet man denn gerade Neuronale netzwerke....
 \subsection{Neural Network Structure}
+\label{sec:neural_net_structure}
 \begin{figure}[tbp]
   \centering
   \includegraphics[width=\columnwidth]{nnStructure}
@@ -49,7 +50,7 @@ wieso verwendet man denn gerade Neuronale netzwerke....
   \label{fig:nnStructure}
 \end{figure}
 
-Figure~\ref{fig:nnStructure} shows the neural network structure we use for compression. There are three layers: input layer, hidden layer and output layer. The input layer and the hidden layer are fully interconnected as are the hidden layer and the output layer. The weights of the edges are detrermined by the training algorithm which is described in the next section. 
+Figure~\ref{fig:nnStructure} shows the neural network structure we use for compression. There are three layers: input layer, hidden layer and output layer. The input layer and the hidden layer are fully interconnected as are the hidden layer and the output layer. The weights of the edges are detrermined by the training algorithm which is described in the next section. This kind of neural network is also called bottleneck-like neural network, because the hidden layer is a bottleneck.
 
 \subsection{Neural Network Training Algorithm}
 For the training 8 by 8 chunks of the image are chosen uniformly at random. The output of the bottleneck-like neural network has to be the same as the input and the weights are set accordingly. This process is iterated until the image is reconstructed faithfully.  
@@ -59,6 +60,7 @@ The singular value decomposition(SVD) is a matrix factorization. A m$\times$n ma
 SVD can be used for image compression the following way. The singular values are sorted in descending order and then only the largest singular values and the corresponding right and left singular vectors are used to save the image.
 
 \subsection{Quanitization}
+\label{sec:quanitization}
 \begin{figure}[tbp]
   \centering
   \includegraphics[width=\columnwidth]{bpQuantizer}
@@ -68,8 +70,18 @@ SVD can be used for image compression the following way. The singular values are
 
 Quantisation as shown in Figure~\ref{fig:bpQuantizer} is the process of mapping a large set of values to a smaller set of values. In Figure~\ref{fig:bpQuantizer} we construct 8 possible binary codes which can be represented with 3 bits. Each code represents an interval of the decimal values. For example, for the values between -1.0 and -0.75 we use the code 000. This way, we use 3 bits for a pixel that originally is represented by 8 bits. This compression method is lossy and the original image can not be reconstructed. 
 
-\section{The Compression Algorithm}
+\section{Compression}
+
+\subsection{Compression with neural networks}
+We use the topology described in section~\ref{sec:neural_net_structure}. This network is then trained with a set of random images. Then, the image can be compressed with this network in the following way. Chunks of the image are iterated in turn and every chunk is fed into the neural network from the left hand side. If we have 8$\times$8 chunks, we have 64 pixels and each pixel is given to one node on the input layer(which in this case has 64 nodes) of the neural network. Then the values on the hidden layer are taken as the "compressed" values. Since the hidden layer has fewer nodes than the input layer, this gives a compression. As one can see in Figure ~\ref{fig:nnStructure}, the neural net used here has 16 nodes on the hidden layer. This already gives a compression ratio of 0.25. 
+
+\subsection{Compression with quantization}
+To further improve compression, quantization as described in Section~\ref{sec:quanitization} is used. The output of the neural network is quantized, such that each 8 bit value is represented using 3 bits.  
+
+\subsection{The Compression Algorithm}
 \label{sec:compAlg}
+
+Overall, the compression can be summarised as follows.
 
 \begin{enumerate}
 \item Train neural network with 100 images
@@ -83,7 +95,7 @@ Quantisation as shown in Figure~\ref{fig:bpQuantizer} is the process of mapping 
 
 \begin{figure}
 \centering
-\begin{tabular}{cccc}
+\begin{tabular}{cc}
 \subfloat {\includegraphics[width=4cm]{original_22}} & 
 \subfloat {\includegraphics[width=4cm]{reconstructed_22}} & 
 \end{tabular}
