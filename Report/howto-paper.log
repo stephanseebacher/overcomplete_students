@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2015.5.29)  12 JUN 2015 15:40
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2015.5.29)  12 JUN 2015 17:01
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -259,7 +259,7 @@ Overfull \hbox (7.71078pt too wide) in paragraph at lines 98--102
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 116--117
+Underfull \hbox (badness 10000) in paragraph at lines 121--122
 
  []
 
@@ -293,7 +293,7 @@ fb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb
 al/texlive/2014/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/local/texliv
 e/2014/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2014/tex
 mf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on howto-paper.pdf (2 pages, 892541 bytes).
+Output written on howto-paper.pdf (2 pages, 893182 bytes).
 PDF statistics:
  47 PDF objects out of 1000 (max. 8388607)
  29 compressed objects within 1 object stream

@@ -84,10 +84,10 @@ To further improve compression, quantization as described in Section~\ref{sec:qu
 Overall, the compression can be summarised as follows.
 
 \begin{enumerate}
-\item Train neural network with 100 images
-\item 2 Iterations of re-training on neural network with actual image
-\item Compress image using neural network
-\item Compress with quanitization
+\item The neural network is trained with the training set; in this case 100 images.
+\item The trained network is adjusted to the actual image by selecting a few random chunks of the image. Then, the the training is done with those few chunks and the weights updated. 
+\item Compress 8$\times$ chunks of image in turn using neural network.
+\item Compress all the resulting values with quanitization.
 
 \end{enumerate}
 
@@ -107,9 +107,14 @@ Overall, the compression can be summarised as follows.
 We tested the compression algorithm with 100 images which were not in the training set and get a mean error of (......) and a compression rate of (......). 
 \newline
 Figure~\ref{fig:compare_images} shows an example image before any compression on the left and the reconstructed image after compression on the right. 
-
+\newline
+Idea: Test with training directly on image, and compare results with pre-training.
 
 \subsection{Comparison to Baselines}
+Describe baselines here.... \newline
+Compare compression rate.... \newline
+Compare error....
+
 
 \section{Discussion}
 
@@ -122,7 +127,7 @@ Weakness: Time
 
 
 \section{Related Work}
-WICHTIG: Was machen wir anders als die?
+WICHTIG: Was machen wir anders als die? Pre-Training + training on image?
 
 \bibliographystyle{IEEEtran}
 \bibliography{howto-paper}
