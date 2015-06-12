@@ -12,7 +12,7 @@
 \author{
   David Chettrit\\
   Stephan Seebacher\\
-  Sezer Gueler\\
+  Sezer G\"uler\\
   Department of Computer Science, ETH Zurich, Switzerland
 }
 
@@ -78,6 +78,33 @@ Quantisation as shown in Figure~\ref{fig:bpQuantizer} is the process of mapping 
 \item Compress with quanitization
 
 \end{enumerate}
+
+\section{Results}
+
+\begin{figure}
+\centering
+\begin{tabular}{cccc}
+\subfloat {\includegraphics[width=4cm]{original_22}} & 
+\subfloat {\includegraphics[width=4cm]{reconstructed_22}} & 
+\end{tabular}
+\caption{Visual comparison of original and reconstructed image.}
+\label{fig:compare_images}
+\end{figure}
+
+
+We tested the compression algorithm with 100 images which were not in the training set and get a mean error of (......) and a compression rate of (......). 
+\newline
+Figure~\ref{fig:compare_images} shows an example image before any compression on the left and the reconstructed image after compression on the right. 
+
+
+
+
+\section{Discussion}
+
+We also tried to apply SVD on the image and then compress the U and V matrices with our neural network. The training had to be adapted. But the decompressed U and V matrices looked very different than the original ones. \newline
+
+Strengths: Mean error, Compression rate. \newline
+Weakness: Time
 
 
 \section{Computational Intelligence Laboratory Requirements}
