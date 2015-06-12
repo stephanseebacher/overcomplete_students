@@ -3,6 +3,8 @@
 \subsection{Compression with neural networks}
 We use the topology described in section~\ref{sec:neural_net_structure}. This network is then trained with a set of random images. Then, the image can be compressed with this network in the following way. Chunks of the image are iterated in turn and every chunk is fed into the neural network from the left hand side. If we have 8$\times$8 chunks, we have 64 pixels and each pixel is given to one node on the input layer(which in this case has 64 nodes) of the neural network. Then the values on the hidden layer are taken as the "compressed" values. Since the hidden layer has fewer nodes than the input layer, this gives a compression. As one can see in Figure ~\ref{fig:nnStructure}, the neural net used here has 16 nodes on the hidden layer. This already gives a compression ratio of 0.25. 
 
+TODO: Describe that one needs to separate neural network for compression and decompression?
+
 \subsection{Compression with quantization}
 To further improve compression, quantization as described in Section~\ref{sec:quanitization} is used. The output of the neural network is quantized, such that each 8 bit value is represented using 3 bits.  
 
