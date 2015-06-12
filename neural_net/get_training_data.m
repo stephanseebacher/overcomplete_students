@@ -24,7 +24,7 @@ for t = 1 : training_samples
     train_data = I( i : i+k-1, j : j+k-1 );
     
     % add to train data
-    data( :, t )= pixel_to_real( train_data );
+    data( :, t )= pixel_to_real( train_data(:) );
 end
 
 end

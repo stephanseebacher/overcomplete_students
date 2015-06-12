@@ -21,15 +21,19 @@ net_dec             = get_decoding_net_2( ...
 
 %% RECONSTRUCT & DECOMPRESS -----------------------------------------------
 
-Id = zeros( patch_size^2, size( comp, 2 ));
+%Id = zeros( patch_size^2, size( comp, 2 ));
+
+inflate = zeros( hidden_layers, size( comp, 2 ));
 
 for i = 1 : size( comp, 2 )
-    inflate = extract_compr( comp( :, i ), number_bits_encoded, q_bits);
-    Id( :, i ) = real_to_pixel( net_dec( inflate ));
+    inflate( :, i ) = extract_compr( comp( :, i ), number_bits_encoded, q_bits);
+    %Id( :, i ) = real_to_pixel( net_dec( inflate ));
 end
 
-
+Id = real_to_pixel( net_dec( inflate ));
 I_rec = reassemble_patches( Id, I_comp.image_size );
+
+% in fix_image function, we multiplied by 255
 I_rec = I_rec / 255;
 
 %disp(['Decompression time: ' num2str( toc( timeit ))])

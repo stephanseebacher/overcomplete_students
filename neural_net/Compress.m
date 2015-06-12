@@ -68,14 +68,17 @@ display('Trained net loaded and ready for further optimization.')
 % now encode the image
 
 % extract patches
-Ie = extract_patches( If, patch_size );
+Ir = pixel_to_real( extract_patches( If, patch_size ));
 
 q_size1 = ceil( hidden_layers * q_bits  / 8 );
-Iq = int8( zeros( q_size1, size( Ie, 2 )));
+Iq = int8( zeros( q_size1, size( Ir, 2 )));
 
 % convert every patch to real, encode and quantize it
-for i = 1 : size( Ie, 2 );
-   Iq( :, i ) = quanitize( net_enc( pixel_to_real( Ie( :, i ))), q_bits);
+Ie = net_enc( Ir );
+
+% quantize the result
+for i = 1 : size( Ie, 2)
+    Iq( :, i ) = quantize( Ie( :, i ), q_bits );
 end
 
 %show initial and compresed image in a plot
