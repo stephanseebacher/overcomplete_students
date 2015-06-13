@@ -1,0 +1,6 @@
+\section{Discussion}
+
+We also tried to apply SVD on the image and then compress the U and V matrices with our neural network. The training had to be adapted. This gives another improvement in the compression rate and since the neural network is applied to U and V after extracting k rows and columns of U and V, also the time performance would be better. But the decompressed U and V matrices looked very different than the original ones. This affected the reconstructed image and gave a bad mean error.\newline
+
+Strengths: Mean error, Compression rate. \newline
+Weakness: Time
