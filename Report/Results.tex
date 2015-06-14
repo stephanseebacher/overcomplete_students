@@ -21,7 +21,7 @@ Idea: Test with training directly on image, and compare results with pre-trainin
 TODO: Run program with different parameters and construct graphs to compare results.
 
 \subsection{Comparison to Baselines}
-We compare our solution with two baselines. The first baseline is a compression algorithm based on Principal Component Anlaysis(PCA) and the second algorithm is based on Gaussian Mixture Models(GMM).  
+We compare our solution with two baselines. The first baseline is a compression algorithm based on Principal Component Anlaysis(PCA) and the second algorithm is based on Clustering with Gaussian Mixture Models(GMM).  
 \newline
 In PCA, one projects high dimensional data to low dimensional data. This can be done using the eigenvalue decomposition on the covariance matrix $\Sigma$, which describes the covariance matrix as a product of three matrices U, $\Lambda$ and U$^T$. U contains the eigenvectors of  $\Sigma$ and $\Lambda$ contains the eigenvalues of $\Sigma$. Similar to SVD, one can sort the eigenvalues in decreasing order and then take the k largest of them and the first k columns of U and k columns of U$^T$ to reduce the data which has to be saved. 
 \newline
