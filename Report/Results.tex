@@ -12,23 +12,31 @@
 \end{figure}
 
 
-We tested the compression algorithm with 100 images which were not in the training set and get a mean error of (......) and a compression rate of (......). 
-Time for everything: 907.7797 \newline
-Average quadratic error: 0.0086154 \newline
-Average compression rate: 0.0094089 \newline
-Average inverse for sum compression/error 55.4806 \newline
+We tested the compression algorithm with 100 images which were not in the training set and get a mean error of 0.0086 and a compression rate of 0.0094. 
+We also tested with 100 images which were all in the training set and the mean error was 0.0082 and the compression rate 0.0092. 
+%Time for everything: 907.7797 \newline
+%Average quadratic error: 0.0086154 \newline
+%Average compression rate: 0.0094089 \newline
+%Average inverse for sum compression/error 55.4806 \newline
 
 
 \newline
-and with 100 images which are all in the training set:\newline
-Time for everything: 873.8136 \newline
-Average quadratic error: 0.008281 \newline
-Average compression rate: 0.0092095 \newline
-Average inverse for sum compression/error 57.174
-\newline
+%and with 100 images which are all in the training set:\newline
+%Time for everything: 873.8136 \newline
+%Average quadratic error: 0.008281 \newline
+%Average compression rate: 0.0092095 \newline
+%Average inverse for sum compression/error 57.174
+%\newline
 Figure~\ref{fig:compare_images} shows an example image before any compression on the left and the reconstructed image after compression on the right. 
 \newline
-Idea: Test with training directly on image, and compare results with pre-training.
+As in (TODO: Reference to paper) we also tried to do the training directly on the actual image only. The results were worse than the pre-training. The compression rate was the same, but the mean error was 0.173.  
+%Time for everything: 44.1702
+%Average quadratic error: 0.17375
+%Average compression rate: 0.0086164
+%Average inverse for sum compression/error 5.4836
+
+
+
 \newline
 TODO: Run program with different parameters and construct graphs to compare results.
 

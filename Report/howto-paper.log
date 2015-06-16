@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2015.5.29)  14 JUN 2015 19:08
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2015.5.29)  16 JUN 2015 14:21
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -264,10 +264,15 @@ Overfull \hbox (7.71078pt too wide) in paragraph at lines 6--10
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 15--20
+! LaTeX Error: There's no line here to end.
 
- []
-
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.23 \newline
+             
+? 
 
 ! LaTeX Error: There's no line here to end.
 
@@ -275,31 +280,30 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.22 \newline
+l.40 \newline
              
 ? 
 )
-Underfull \hbox (badness 2205) in paragraph at lines 36--30
+Underfull \hbox (badness 2205) in paragraph at lines 44--30
 \OT1/ptm/m/n/10 In PCA, one projects high di-men-sional data to low
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 36--30
+Underfull \hbox (badness 10000) in paragraph at lines 44--30
 
  []
 
 
-Underfull \hbox (badness 2961) in paragraph at lines 36--30
+Underfull \hbox (badness 2961) in paragraph at lines 44--30
 \OT1/ptm/m/n/10 TODO: Men-tion pa-ram-e-ters used for both base-lines,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 36--30
+Underfull \hbox (badness 10000) in paragraph at lines 44--30
 
  []
 
-[2 <./images/bqQuantizer.png> <./images/original_2.jpg> <./images/reconstructed
-_2.png>] (./Discussion.tex
+(./Discussion.tex
 Underfull \hbox (badness 2582) in paragraph at lines 3--4
 \OT1/ptm/m/n/10 The train-ing had to be adapted. This gives an-other
  []
@@ -309,7 +313,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 3--4
 
  []
 
-) (./Related.tex) (./howto-paper.bbl
+
+Underfull \vbox (badness 1584) has occurred while \output is active []
+
+ [2 <./images/bqQuantizer.png> <./images/original_2.jpg> <./images/reconstructe
+d_2.png>])
+(./Related.tex) (./howto-paper.bbl
 
 ! LaTeX Error: Something's wrong--perhaps a missing \item.
 
@@ -352,7 +361,7 @@ fb></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb
 al/texlive/2014/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/local/texliv
 e/2014/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2014/tex
 mf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on howto-paper.pdf (3 pages, 902811 bytes).
+Output written on howto-paper.pdf (3 pages, 902763 bytes).
 PDF statistics:
  54 PDF objects out of 1000 (max. 8388607)
  34 compressed objects within 1 object stream
