@@ -29,7 +29,7 @@ We also tested with 100 images which were all in the training set and the mean e
 %\newline
 Figure~\ref{fig:compare_images} shows an example image before any compression on the left and the reconstructed image after compression on the right. 
 \newline
-As in (TODO: Reference to paper) we also tried to do the training directly on the actual image only. The results were worse than the pre-training. The compression rate was the same, but the mean error was 0.173.  
+As in (TODO: Reference to paper) we also tried to do the training directly on the actual image only. The results were worse than the pre-training. The compression rate was the same, but the mean error was 0.173. This is almost 2 orders of magnitude more than with pre-training.
 %Time for everything: 44.1702
 %Average quadratic error: 0.17375
 %Average compression rate: 0.0086164
@@ -39,6 +39,105 @@ As in (TODO: Reference to paper) we also tried to do the training directly on th
 
 \newline
 TODO: Run program with different parameters and construct graphs to compare results.
+\newline
+Examples: patch size - compression ratio; hidden layers - compression rate; patch size - mean error; hidden layers - mean error; 
+
+% PATCH SIZE 4, HIDDEN LAYERS 4
+%Time for everything: 117.5568
+%Average quadratic error: 0.0060538
+%Average compression rate: 0.016862
+%Average inverse for sum compression/error 43.6374
+
+% PATCH SIZE 6, HIDDEN LAYERS 4
+%Time for everything: 52.8711
+%Average quadratic error: 0.006604
+%Average compression rate: 0.0086164
+%Average inverse for sum compression/error 65.7015
+
+% PATCH SIZE 8, HIDDEN LAYERS 4
+%Time for everything: 30.2464
+%Average quadratic error: 0.0072032
+%Average compression rate: 0.0062847
+%Average inverse for sum compression/error 74.1408
+
+% PATCH SIZE 10, HIDDEN LAYERS 4
+%Time for everything: 20.1319
+%Average quadratic error: 0.0087594
+%Average compression rate: 0.0057288
+%Average inverse for sum compression/error 69.0213
+
+% PATCH SIZE 12, HIDDEN LAYERS 4
+%Time for everything: 13.5843
+%Average quadratic error: 0.0092245
+%Average compression rate: 0.0060221
+%Average inverse for sum compression/error 65.5884
+
+% PATCH SIZE 16, HIDDEN LAYERS 4
+%Time for everything: 7.295
+%Average quadratic error: 0.013239
+%Average compression rate: 0.0079995
+%Average inverse for sum compression/error 47.0841
+
+% PATCH SIZE 8 HIDDEN LAYERS 6
+%Time for everything: 42.452
+%Average quadratic error: 0.0062569
+%Average compression rate: 0.0088015
+%Average inverse for sum compression/error 66.4077
+
+% PATCH SIZE 8 HIDDEN LAYERS 8
+%Time for everything: 55.9548
+%Average quadratic error: 0.008112
+%Average compression rate: 0.0093225
+%Average inverse for sum compression/error 57.3575
+
+% PATCH SIZE 8 HIDDEN LAYERS 10
+%Time for everything: 56.6679
+%Average quadratic error: 0.0072036
+%Average compression rate: 0.011839
+%Average inverse for sum compression/error 52.5127
+
+% PATCH SIZE 8 HIDDEN LAYERS 12
+%Time for everything: 70.1564
+%Average quadratic error: 0.0071811
+%Average compression rate: 0.014356
+%Average inverse for sum compression/error 46.4308
+
+% PATCH SIZE 8 HIDDEN LAYERS 16
+%Time for everything: 92.5174
+%Average quadratic error: 0.0079607
+%Average compression rate: 0.017394
+%Average inverse for sum compression/error 39.4401
+
+% PATCH SIZE 9 HIDDEN LAYERS 4
+%Time for everything: 18.4964
+%Average quadratic error: 0.0066528
+%Average compression rate: 0.0058509
+%Average inverse for sum compression/error 79.9763
+
+% PATCH SIZE 9 HIDDEN LAYERS 5
+%Time for everything: 22.764
+%Average quadratic error: 0.0072818
+%Average compression rate: 0.0061806
+%Average inverse for sum compression/error 74.2808
+
+% PATCH SIZE 7 HIDDEN LAYERS 4
+%Time for everything: 30.2616
+%Average quadratic error: 0.0081324
+%Average compression rate: 0.0071031
+%Average inverse for sum compression/error 65.6363
+
+% PATCH SIZE 9 HIDDEN LAYERS 4 with QUANTIZATION == 4
+%Time for everything: 22.4151
+%Average quadratic error: 0.0054932
+%Average compression rate: 0.0058509
+%Average inverse for sum compression/error 88.1513
+
+% PATCH SIZE 8 HIDDEN LAYERS 4 with QUANTIZATION == 4
+%Time for everything: 28.7499
+%Average quadratic error: 0.004827
+%Average compression rate: 0.0062847
+%Average inverse for sum compression/error 89.9952s
+
 
 \subsection{Comparison to Baselines}
 We compare our solution with two baselines. The first baseline is a compression algorithm based on Principal Component Anlaysis(PCA) and the second algorithm is based on Clustering with Gaussian Mixture Models(GMM).  
