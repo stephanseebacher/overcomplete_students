@@ -16,7 +16,7 @@ Overall, the compression can be summarized as follows.
 \begin{enumerate}
 \item The neural network is trained with the training set; in this case 100 images.
 \item The trained network is adjusted to the actual image by selecting a few random chunks of the image. Then, the the training is done with those few chunks and the weights updated. 
-\item Compress 8$\times$ chunks of image in turn using neural network.
+\item Compress 8$\times$8 chunks of image in turn using neural network.
 \item Compress all the resulting values with quanitization.
 
 \end{enumerate}
