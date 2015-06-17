@@ -35,13 +35,15 @@ As in (TODO: Reference to paper) we also tried to do the training directly on th
 %Average compression rate: 0.0086164
 %Average inverse for sum compression/error 5.4836
 
-
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=\columnwidth]{images/optParams}
+  \caption{Compression ratio and error for different parameters, where the first number of each point is the patch size and the second number is the number of hidden layers in the neural network. For all points but the lower left one the number of quantization bits is 3, and 4 for the lower left point.}
+  \label{fig:optParams}
+\end{figure}
 
 \newline
-TODO: Run program with different parameters and construct graphs to compare results.
-\newline
-Examples: patch size - compression ratio; hidden layers - compression rate; patch size - mean error; hidden layers - mean error; 
-
+To find the optimal parameters the program was executed with different values for the parameters and the results are shown in Figure~\ref{fig:optParams}. There are basically three important parameters: The patch size, the number of hidden layers and the number of quantization bits. The program was executed for patch sizes and number of hidden layers between 4 and 16. The number quantisation bits was 3 for the experiments. As the graph shows, the optimal values for patch size and hidden layers were 8 and 4. Setting the number of quantization bits to 4 instead of 3 gave even better results for the mean error.   
 % PATCH SIZE 4, HIDDEN LAYERS 4
 %Time for everything: 117.5568
 %Average quadratic error: 0.0060538
@@ -137,6 +139,12 @@ Examples: patch size - compression ratio; hidden layers - compression rate; patc
 %Average quadratic error: 0.004827
 %Average compression rate: 0.0062847
 %Average inverse for sum compression/error 89.9952s
+
+% PATCH SIZE 8 HIDDEN LAYERS 4 with QUANTIZATION == 4, Training with 300 samples instead of 100.
+%Time for everything: 29.0196
+%Average quadratic error: 0.0048096
+%Average compression rate: 0.0062847
+%Average inverse for sum compression/error 90.1365
 
 
 \subsection{Comparison to Baselines}
