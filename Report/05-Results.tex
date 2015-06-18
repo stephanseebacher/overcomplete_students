@@ -148,18 +148,48 @@ To find the optimal parameters the program was executed with different values fo
 
 
 \subsection{Comparison to Baselines}
+
+
+\begin{table}
+\centering
+    \begin{tabular}{| l | l | l | l |}
+    \hline
+    Algorithm & Exec. Time & Mean Error & Compr. Ratio \\ \hline
+    PCA & 11.56 & 0.000201 & 0.48466\\ \hline
+    GMM & 64.93 & 0.011028 & 0.13965 \\ \hline
+    NN & 596.42 & 0.008281 & 0.00920 \\
+    \hline
+    \end{tabular}
+    \caption{Numerical comparison of the neural networks algorithm to the baselines.}
+    \label{tab:compareBaselines}
+\end{table}
+
 We compare our solution with two baselines. The first baseline is a compression algorithm based on Principal Component Anlaysis(PCA) and the second algorithm is based on Clustering with Gaussian Mixture Models(GMM).  
 \newline
 In PCA, one projects high dimensional data to low dimensional data. This can be done using the eigenvalue decomposition on the covariance matrix $\Sigma$, which describes the covariance matrix as a product of three matrices U, $\Lambda$ and U$^T$. U contains the eigenvectors of  $\Sigma$ and $\Lambda$ contains the eigenvalues of $\Sigma$. Similar to SVD, one can sort the eigenvalues in decreasing order and then take the k largest of them and the first k columns of U and k columns of U$^T$ to reduce the data which has to be saved. 
 \newline
-\newline
-TODO: Mention parameters used for both baselines, e.g k
-\newline
+
 \newline
 Clustering is the process of assigning each value x in a data set S to some value x' of a smaller set S'. In image compression one can use this to reduce the color space. Each pixel is assigned to one of the RGB values in the smaller color set, i.e. to a cluster. Using mixture models, each pixel can be assigned to more than one cluster with a corresponding probability. In a gaussian mixture model, those values are distributed according to a normal distribution. The second baseline compresses images with this approach. 
 \newline
-TODO:
-\newline
-Compare compression rates.... 
-\newline
-Compare error....
+The two baseline algorithms were executed on a the training image set with 100 images from before. For the PCA algorithm, the number of eigenvalues k was chosen to be 100 and the patch size 20, because those values gave the best results in terms of compression ratio and mean error. In GMM, the number of clusters was chosen to be 3 because of the same reason. As Table~\ref{tab:compareBaselines} shows the execution time(Compression and Decompression) of PCA on 100 images was 11.59 seconds and the execution time of GMM was 64.93 seconds. Compared to our neural network algorithm which takes about 600 seconds for 100 images the baselines performed much better in time. But the mean error of our neural network approach is about an order of magnitude better than the mean error of GMM and the compression rate is 2 orders better than both, GMM and PCA.
+
+
+%PCA 100 images
+%Time for everything: 11.5597
+%Average quadratic error: 0.00020142
+%Average compression rate: 0.48466
+%Average inverse for sum compression/error 2.0625
+
+%GMM 100 images
+%Time for everything: 64.9339
+%Average quadratic error: 0.011028
+%Average compression rate: 0.13965
+%Average inverse for sum compression/error 6.6365
+
+% Neural net 100 images
+%Time for everything: 596.4225
+%Average quadratic error: 0.010204
+%Average compression rate: 0.0071312
+%Average inverse for sum compression/error 57.6857
+
