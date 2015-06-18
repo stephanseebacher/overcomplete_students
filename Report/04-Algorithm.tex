@@ -2,18 +2,25 @@
 \label{sec:algorithm}
 
 In this section, we will briefly describe the steps our algorithm takes and then provide more details on key parts of it. The algorithm consists of two parts, a \emph{Compress} function and a \emph{Decompress} function. In the Compress function, to which one passes the original image as an argument, the following steps are completed:
-\paragraph{Feature extraction} First, we add rows and columns to the image matrix so that the number of rows and columns is evenly divisible by the predefined patch size. We then extract patches of size {\color{red}X by X} and return them as a single column vector.
+\begin{enumerate}
+\item \emph{Feature extraction}. First, we add rows and columns to the image matrix so that the number of rows and columns is evenly divisible by the predefined patch size. We then extract patches of size {\color{red}X by X} and return them as a single column vector.
 
-\paragraph{Training} Training is actually performed separately, with much more images as input than just the one we want to compress, however, as it is always possible to add several training epochs on the current image in addition to the already trained matrix, we list training in this spot. The training function chooses several columns of our patches matrix and uses them as input for the neural network while the target output is the same vector. The weights are set accordingly during the training phase until the difference between desired and actual output is within a reasonable threshold.
+\item \emph{Training} is performed ``globally'', with much more images as input than just the one we want to compress. However, as it is always possible to add several training epochs on the current image in addition to the already trained matrix, we list training in this spot. The training function chooses several columns of our patches matrix and uses them as input for the neural network while the target output is the same column vector. The weights are set accordingly during the training phase until the difference between the output and the target vector is within a desired threshold.
 
+\item \emph{Network separation}. After the training is done, we separate the neural network into two parts, one including input and hidden layer and the other including hidden and output layer. The first will be our compression network, using the values of the hidden layer as the output, while the latter is the decompression network, taking the values of the hidden layer as input and returning an approximation of the original data.
+
+\item \emph{Compression} is done by applying the compression network to the column vectors of the image.
+
+\item \emph{Quantization}. After compression, we are presented with values in the range of \([-1, 1]\). 
+\end{enumerate}
 
 
 Different learning methods were tried like {\color{red}TODO} but it turned out that for the Levenberg-Marquardt method the results were best. 
 
 
-\subsection{Singular Value Decomposition}
-The singular value decomposition(SVD) is a matrix factorization. A m$\times$n matrix M can be written as a product of three matrices U, $\Sigma$ and V$^*$, where U is a unitary m$\times$m matrix, V$^*$ is the conjugate transpose of a n$\times$n unitary matrix V and $\Sigma$ is a m$\times$n diagonal matrix. The entries on the diagonal of $\Sigma$, which are non-negativ real numbers, are called the singular values of M. The columns of U are called left singular vectors and the rows of V$^*$ are called right singular vectors of M. \\
-SVD can be used for image compression the following way. The singular values are sorted in descending order and then only the largest singular values and the corresponding right and left singular vectors are used to save the image.
+%%\subsection{Singular Value Decomposition}
+%%The singular value decomposition(SVD) is a matrix factorization. A m$\times$n matrix M can be written as a product of three matrices U, $\Sigma$ and V$^*$, where U is a unitary m$\times$m matrix, V$^*$ is the conjugate transpose of a n$\times$n unitary matrix V and $\Sigma$ is a m$\times$n diagonal matrix. The entries on the diagonal of $\Sigma$, which are non-negativ real numbers, are called the singular values of M. The columns of U are called left singular vectors and the rows of V$^*$ are called right singular vectors of M. \\
+%%SVD can be used for image compression the following way. The singular values are sorted in descending order and then only the largest singular values and the corresponding right and left singular vectors are used to save the image.
 
 \subsection{Quanitization}
 \label{sec:quanitization}
