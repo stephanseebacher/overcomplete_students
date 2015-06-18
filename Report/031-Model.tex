@@ -1,16 +1,13 @@
 \section{The Model} \label{sec:model}
-{\color{red} TODO }
+{\color{red} TODO: Improve! 
+Add training functions, feedforwardnet etc. (maybe in neural network section?)}
 
-Our model includes .
 
-
-with much more images as input than just the one we want to compress. However, as it is always possible to add several training epochs on the current image in addition to the already trained matrix, we list training in this spot. The training function chooses several columns of our patches matrix and uses them as input for the neural network while the target output is the same column vector. The weights are set accordingly during the training phase until the difference between the output and the target vector is within a desired threshold.
+The training function chooses several columns of our patches matrix and uses them as input for the neural network while the target output is the same column vector. The weights are set accordingly during the training phase until the difference between the output and the target vector is within a desired threshold.
 
 
 \subsection{Compression with neural networks}
 We use the topology described in section~\ref{sec:neural_net_structure}. This network is then trained with a set of random images. Then, the image can be compressed with this network in the following way. Chunks of the image are iterated in turn and every chunk is fed into the neural network from the left hand side. If we have 8$\times$8 chunks, we have 64 pixels and each pixel is given to one node on the input layer(which in this case has 64 nodes) of the neural network. Then the values on the hidden layer are taken as the "compressed" values. Since the hidden layer has fewer nodes than the input layer, this gives a compression. As one can see in Figure ~\ref{fig:nnStructure}, the neural net used here has 16 nodes on the hidden layer. This already gives a compression ratio of 0.25. 
-
-TODO: Describe that one needs to separate neural network for compression and decompression?
 
 %%\subsection{Singular Value Decomposition}
 %%The singular value decomposition(SVD) is a matrix factorization. A m$\times$n matrix M can be written as a product of three matrices U, $\Sigma$ and V$^*$, where U is a unitary m$\times$m matrix, V$^*$ is the conjugate transpose of a n$\times$n unitary matrix V and $\Sigma$ is a m$\times$n diagonal matrix. The entries on the diagonal of $\Sigma$, which are non-negativ real numbers, are called the singular values of M. The columns of U are called left singular vectors and the rows of V$^*$ are called right singular vectors of M. \\
