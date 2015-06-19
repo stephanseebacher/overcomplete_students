@@ -12,7 +12,7 @@
 \end{figure}
 
 
-We tested the compression algorithm with 100 images which were not in the training set and get a mean error of 0.0086 and a compression rate of 0.0094. 
+We tested the compression algorithm with 100 jpeg-images which were not in the training set and get a mean error of 0.0086 and a compression rate of 0.0094. 
 We also tested with 100 images which were all in the training set and the mean error was 0.0082 and the compression rate 0.0092. 
 %Time for everything: 907.7797 \newline
 %Average quadratic error: 0.0086154 \newline
@@ -29,7 +29,7 @@ We also tested with 100 images which were all in the training set and the mean e
 %\newline
 Figure~\ref{fig:compare_images} shows an example image before any compression on the left and the reconstructed image after compression on the right. 
 \newline
-As in {\color{red}  (TODO: Reference to paper)} we also tried to do the training directly on the actual image only. The results were worse than the pre-training. The compression rate was the same, but the mean error was 0.173. This is almost 2 orders of magnitude more than with pre-training.
+We also tried to do the training directly on the actual image only. The results were worse than the pre-training. The compression rate was the same, but the mean error was 0.173. This is almost 2 orders of magnitude more than with pre-training.
 %Time for everything: 44.1702
 %Average quadratic error: 0.17375
 %Average compression rate: 0.0086164
@@ -38,12 +38,12 @@ As in {\color{red}  (TODO: Reference to paper)} we also tried to do the training
 \begin{figure}[tbp]
   \centering
   \includegraphics[width=\columnwidth]{images/optParams}
-  \caption{Compression ratio and error for different parameters, where the first number of each point is the patch size and the second number is the number of hidden layers in the neural network. For all points but the lower left one the number of quantization bits is 3, and 4 for the lower left point.}
+  \caption{Compression ratio and error for different parameters, where the first number of each point is the patch size and the second number is the number of hidden layer nodes in the neural network. For all points but the lower left one the number of quantization bits is 3, and 4 for the lower left point.}
   \label{fig:optParams}
 \end{figure}
 
 \newline
-To find the optimal parameters the program was executed with different values for the parameters and the results are shown in Figure~\ref{fig:optParams}. There are basically three important parameters: The patch size, the number of hidden layers and the number of quantization bits. The program was executed for patch sizes and number of hidden layers between 4 and 16. The number quantisation bits was 3 for the experiments. As the graph shows, the optimal values for patch size and hidden layers were 8 and 4. Setting the number of quantization bits to 4 instead of 3 gave even better results for the mean error.   
+To find the optimal parameters the program was executed with different values for the parameters and the results are shown in Figure~\ref{fig:optParams}. There are basically three important parameters: the patch size, the number of hidden layer nodes and the number of quantization bits. The program was executed for patch sizes and number of hidden layer nodes between 4 and 16. The number quantization bits was 3 for the experiments. As the graph shows, the optimal values for patch size and hidden layers were 8 and 4. Setting the number of quantization bits to 4 instead of 3 gave even better results for the mean error.   
 % PATCH SIZE 4, HIDDEN LAYERS 4
 %Time for everything: 117.5568
 %Average quadratic error: 0.0060538
@@ -164,13 +164,13 @@ To find the optimal parameters the program was executed with different values fo
     \label{tab:compareBaselines}
 \end{table}
 
-We compare our solution with two baselines. The first baseline is a compression algorithm based on Principal Component Anlaysis(PCA) and the second algorithm is based on Clustering with Gaussian Mixture Models(GMM).  
+We compare our solution with two baselines. The first baseline is a compression algorithm based on PCA and the second algorithm is based on Clustering with GMM.  
 \newline
 In PCA, one projects high dimensional data to low dimensional data. This can be done using the eigenvalue decomposition on the covariance matrix $\Sigma$, which describes the covariance matrix as a product of three matrices U, $\Lambda$ and U$^T$. U contains the eigenvectors of  $\Sigma$ and $\Lambda$ contains the eigenvalues of $\Sigma$. Similar to SVD, one can sort the eigenvalues in decreasing order and then take the k largest of them and the first k columns of U and k columns of U$^T$ to reduce the data which has to be saved. 
 \newline
 
 \newline
-Clustering is the process of assigning each value x in a data set S to some value x' of a smaller set S'. In image compression one can use this to reduce the color space. Each pixel is assigned to one of the RGB values in the smaller color set, i.e. to a cluster. Using mixture models, each pixel can be assigned to more than one cluster with a corresponding probability. In a gaussian mixture model, those values are distributed according to a normal distribution. The second baseline compresses images with this approach. 
+Clustering is the process of assigning each value x in a data set S to some value x' of a smaller set S'. In image compression one can use this technique to reduce the color space. Each pixel is assigned to one of the RGB values in the smaller color set, i.e. to a cluster. Using mixture models, each pixel can be assigned to more than one cluster with a corresponding probability. In a gaussian mixture model, those values are distributed according to a normal distribution. The second baseline compresses images with this approach. 
 \newline
 The two baseline algorithms were executed on a the training image set with 100 images from before. For the PCA algorithm, the number of eigenvalues k was chosen to be 100 and the patch size 20, because those values gave the best results in terms of compression ratio and mean error. In GMM, the number of clusters was chosen to be 3 because of the same reason. As Table~\ref{tab:compareBaselines} shows the execution time(Compression and Decompression) of PCA on 100 images was 11.59 seconds and the execution time of GMM was 64.93 seconds. Compared to our neural network algorithm which takes about 600 seconds for 100 images the baselines performed much better in time. But the mean error of our neural network approach is about an order of magnitude better than the mean error of GMM and the compression rate is 2 orders better than both, GMM and PCA.
 
