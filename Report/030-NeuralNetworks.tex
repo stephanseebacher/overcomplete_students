@@ -10,7 +10,7 @@ The power of neural networks lies in its ability to learn and generalize \cite{H
 \begin{figure}[tbp]
   \centering
   \includegraphics[width=0.33\textwidth]{images/nnStructure}
-  \caption{Neural Network Structure for compression.}
+  \caption{Neural Network Structure.}
   \label{fig:nnStructure}
 \end{figure}
 
@@ -24,10 +24,10 @@ Predictive coding aims to reduce redundancies by decorrelating the data. An esti
 \begin{equation}
 \hat{x}_n = \sum_{j=1}^{p} w_j x(n-j)
 \end{equation}
-where \({w_j}\) is a set of coefficients from a statistical model called autoregressive model. The mean squared error is then minimized by satisfying \(Rw = d\) where \(R_{ij}\) is the \emph{ij}th element of the autocovariance matrix and \(d_j = E[\hat{x}(n)x(j)]\).
+where \({w_j}\) is a set of coefficients from a statistical model called autoregressive model. The mean squared error is then minimized by satisfying \(Rw = d\), where \(R_{ij}\) is the \emph{ij}-th element of the autocovariance matrix and \(d_j = E[\hat{x}(n)x(j)]\).
 
 \subsubsection{Transform coding}
-In transform coding, one chooses a transformation that produces a set of coefficients such that a subset of these coefficients is sufficient to reconstruct the original data. One such transform coding is linear block transform coding, a technique that uses orthonormal basis vectors \(w_i\) in the transformation matrix \(W\). The output vector \(y = Wx\) is the coefficient vector of \(x\), a length \(N\) vector of an \(N = n \times n\) image block. The reconstructed image is then given as \(\hat{x} = W^Ty\). 
+In transform coding, one chooses a transformation that produces a set of coefficients such that a subset of these coefficients is sufficient to reconstruct the original data. One such transform coding is linear block transform coding, a technique that uses orthonormal basis vectors \(w_i\) in the transformation matrix \(W\). The output vector \(y = Wx\) is the coefficient vector of \(x\), a length \(N = n^2\) vector of an \(n \times n\) image block. The vectorized image is then given as \(\hat{x} = W^Ty\). 
 A famous example for linear block transform coding is the image compression standard JPEG.
 
 \subsubsection{Vector quantization}

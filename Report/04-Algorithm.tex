@@ -23,7 +23,7 @@ In the Compress function, to which one passes the original image as an argument,
 
 \item \emph{Network encoding} is done by applying the compression network to the column vectors of the image, effectively reducing data size from {\color{red} X bytes to Y byte}.
 
-\item \emph{Quantization} as shown in Figure~\ref{fig:bpQuantizer} is the process of mapping a large set of values in a partitioned interval to the set of integers \({1,...,k}\). After compression, we quantize the output using 4 bits for quantization levels, leaving us with 16 identically wide intervals. After mapping the compression output to these values, we store two indices per byte.
+\item \emph{Quantization} as shown in Figure~\ref{fig:bpQuantizer} is the process of mapping a large set of values in a partitioned interval to the set of integers \(\{1,...,k\}\). After compression, we quantize the output using 4 bits for quantization levels, leaving us with 16 identically wide intervals. After mapping the compression output to these values, we store two indices per byte.
 
 \item \emph{Transmission}. The final data structure of the compressed image consists of the compressed and quantized output, the decoding net, image size and the parameters patch size, hidden layer node count and quantization bits.
 \end{enumerate}
