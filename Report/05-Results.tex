@@ -1,35 +1,31 @@
-
 \section{Results}
 
 \begin{figure}
-\centering
-\begin{tabular}{cc}
-\subfloat {\includegraphics[width=4cm]{images/original_2}} & 
-\subfloat {\includegraphics[width=4cm]{images/reconstructed_2}} & 
-\end{tabular}
-\caption{Visual comparison of original and reconstructed image.}
+\begin{subfigure}[b]{0.49\linewidth}
+\includegraphics[width=1.0\linewidth]{images/original_2}
+\end{subfigure}
+\begin{subfigure}[b]{0.49\linewidth}
+\includegraphics[width=1.0\linewidth]{images/reconstructed_2}
+\end{subfigure}
+\caption{Visual comparison of original and compressed image}
 \label{fig:compare_images}
 \end{figure}
 
-
-We tested the compression algorithm with 100 jpeg-images which were not in the training set and get a mean error of 0.0086 and a compression rate of 0.0094. 
-We also tested with 100 images which were all in the training set and the mean error was 0.0082 and the compression rate 0.0092. 
+All results were obtained using MATLAB. On a test set with 100 images included in the training set the mean error is 0.0082 with a compression rate of 0.0092, while the mean error is 0.0086 and the compression rate is 0.0094 if the images are not included in the training set.
 %Time for everything: 907.7797 \newline
 %Average quadratic error: 0.0086154 \newline
 %Average compression rate: 0.0094089 \newline
 %Average inverse for sum compression/error 55.4806 \newline
 
-
-\newline
 %and with 100 images which are all in the training set:\newline
 %Time for everything: 873.8136 \newline
 %Average quadratic error: 0.008281 \newline
 %Average compression rate: 0.0092095 \newline
 %Average inverse for sum compression/error 57.174
 %\newline
-Figure~\ref{fig:compare_images} shows an example image before any compression on the left and the reconstructed image after compression on the right. 
-\newline
-We also tried to do the training directly on the actual image only. The results were worse than the pre-training. The compression rate was the same, but the mean error was 0.173. This is almost 2 orders of magnitude more than with pre-training.
+Figure~\ref{fig:compare_images} shows an example run of the algorithm. The image on the left is the original, uncompressed image. On the right, we see the same image after being compressed and decompressed with patch size 8, 4 hidden layer nodes and 4 quantization bits. 
+
+If the training was only performed on the current image, the results were worse than with global training. The compression rate stayed the same, however the mean error grew to 0.173, almost 2 orders of magnitude higher than with a universal neural network.
 %Time for everything: 44.1702
 %Average quadratic error: 0.17375
 %Average compression rate: 0.0086164
@@ -42,8 +38,7 @@ We also tried to do the training directly on the actual image only. The results 
   \label{fig:optParams}
 \end{figure}
 
-\newline
-To find the optimal parameters the program was executed with different values for the parameters and the results are shown in Figure~\ref{fig:optParams}. There are basically three important parameters: the patch size, the number of hidden layer nodes and the number of quantization bits. The program was executed for patch sizes and number of hidden layer nodes between 4 and 16. The number quantization bits was 3 for the experiments. As the graph shows, the optimal values for patch size and hidden layers were 8 and 4. Setting the number of quantization bits to 4 instead of 3 gave even better results for the mean error.   
+To find the optimal parameters the program was executed with different values for the parameters and the results are shown in Figure~\ref{fig:optParams}. There are basically three important parameters: the patch size, the number of hidden layer nodes and the number of quantization bits. The program was executed for patch sizes and number of hidden layer nodes between 4 and 16. The number of quantization bits was 3 for the experiments. As the graph shows, the optimal values for patch size and hidden layers were 8 and 4. Setting the number of quantization bits to 4 instead of 3 yielded even better results for the mean error.
 % PATCH SIZE 4, HIDDEN LAYERS 4
 %Time for everything: 117.5568
 %Average quadratic error: 0.0060538
@@ -149,7 +144,6 @@ To find the optimal parameters the program was executed with different values fo
 
 \subsection{Comparison to Baselines}
 
-
 \begin{table}
 \centering
     \begin{tabular}{| l | l | l | l |}
@@ -160,19 +154,17 @@ To find the optimal parameters the program was executed with different values fo
     NN & 596.42 & 0.008281 & 0.00920 \\
     \hline
     \end{tabular}
-    \caption{Numerical comparison of the neural networks algorithm to the baselines. Each algorithm is applied to the same image set with 100 images, which is also the training set for the neural network.}
+    \caption{Numerical comparison of the neural network performance to the baselines. Each algorithm is applied to the same image set with 100 images, which is also the training set for the neural network.}
     \label{tab:compareBaselines}
 \end{table}
 
-We compare our solution with two baselines. The first baseline is a compression algorithm based on PCA and the second algorithm is based on Clustering with GMM.  
-\newline
-In PCA, one projects high dimensional data to low dimensional data. This can be done using the eigenvalue decomposition on the covariance matrix $\Sigma$, which describes the covariance matrix as a product of three matrices U, $\Lambda$ and U$^T$. U contains the eigenvectors of  $\Sigma$ and $\Lambda$ contains the eigenvalues of $\Sigma$. Similar to SVD, one can sort the eigenvalues in decreasing order and then take the k largest of them and the first k columns of U and k columns of U$^T$ to reduce the data which has to be saved. 
-\newline
+We compare our solution with two baseline algorithms. The first baseline is a compression based on principle component analysis (PCA) and the second algorithm is based on clustering with Gaussian mixture models (GMM).  
 
-\newline
-Clustering is the process of assigning each value x in a data set S to some value x' of a smaller set S'. In image compression one can use this technique to reduce the color space. Each pixel is assigned to one of the RGB values in the smaller color set, i.e. to a cluster. Using mixture models, each pixel can be assigned to more than one cluster with a corresponding probability. In a gaussian mixture model, those values are distributed according to a normal distribution. The second baseline compresses images with this approach. 
-\newline
-The two baseline algorithms were executed on a the training image set with 100 images from before. For the PCA algorithm, the number of eigenvalues k was chosen to be 100 and the patch size 20, because those values gave the best results in terms of compression ratio and mean error. In GMM, the number of clusters was chosen to be 3 because of the same reason. As Table~\ref{tab:compareBaselines} shows the execution time(Compression and Decompression) of PCA on 100 images was 11.59 seconds and the execution time of GMM was 64.93 seconds. Compared to our neural network algorithm which takes about 600 seconds for 100 images the baselines performed much better in time. But the mean error of our neural network approach is about an order of magnitude better than the mean error of GMM and the compression rate is 2 orders better than both, GMM and PCA.
+In PCA, one projects high dimensional data to low dimensional data. This can be done using the eigenvalue decomposition on the covariance matrix $\Sigma$, which describes the covariance matrix as a product of three matrices \(U\), $\Lambda$ and $U^T$. \(U\) contains the eigenvectors of  $\Sigma$ and $\Lambda$ contains the eigenvalues of $\Sigma$. Similar to singular vector decomposition (SVD), one can sort the eigenvalues in decreasing order, taking only the \(k\) largest eigenvalues together with the first \(k\) columns of \(U\) and \(k\) columns of \(U^T\) to reduce the data. 
+
+Clustering is the process of assigning each value \(x\) in a data set \(S\) to some value \(x'\) of a smaller set \(S'\). In image compression one can use this technique to reduce the color space. Each pixel is assigned to one of the RGB values in the smaller color set, i.e. to a cluster. Using mixture models, each pixel can be assigned to more than one cluster with a corresponding probability. In a gaussian mixture model, those values are distributed according to a normal distribution. The second baseline compresses images with this approach. 
+
+The two baseline algorithms were implemented using MATLAB and executed on the training image set with 100 images from before. For the PCA algorithm, the number of eigenvalues \(k\) was chosen to be 100 and the patch size 20, because those values gave the best results in terms of compression ratio and mean error. In GMM, the number of clusters was chosen to be 3. As Table~\ref{tab:compareBaselines} shows the execution time (compression and decompression) of PCA on 100 images was 11.59 seconds and the execution time of GMM was 64.93 seconds. Compared to our neural network algorithm, which takes about 600 seconds for 100 images, the baselines performed much better in time. However, the mean error of our neural network approach is about an order of magnitude better than the mean error of GMM and the compression rate is 2 orders better than both, GMM and PCA.
 
 
 %PCA 100 images
