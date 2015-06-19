@@ -4,32 +4,17 @@ function [ I_comp ] = Compress( I )
 %timeit = tic;
 
 %% SETTINGS + PARAMETERS --------------------------------------------------
-% choose training_samples kxk chunks uniform at random to trian the nn
-patch_size = 6;
+% choose training_samples k*k chunks uniform at random to train the NN
+patch_size = 8;
 
 training_samples = 100;
 
 % train neural net with z hidden layers z<k*k, better be power of 2 to show
-% compressed image afterwards
+%   compressed image afterwards
 hidden_layers = 4;
 
-% setdemorandstream(491218382) %used to avoid randomness, and get similar results after each training
-%feedforwardnet very important! patternnet not working for example!
-% net= feedforwardnet(z);
-
-% Training paramters
-%  set particular training goal 
-%  TODO: choose carefully
-net.trainParam.goal = 0.001;
-% max iterations
-net.trainParam.epochs = 30;
-% max training time in seconds
-net.trainParam.time = 25; 
-% set trainging function
-% net.trainFcn ='trainlm'; % so far default used because faster
-
-% use 3 bit quantization
-q_bits = 3;
+% use for quantization
+q_bits = 4;
 
 %% PREPROCESS -------------------------------------------------------------
 
@@ -48,22 +33,6 @@ end
 load( trained_net );
 display('Trained net loaded and ready for further optimization.')
 
-
-% % create training data chunks
-% Data = get_training_data( I, patch_size, training_samples );
-% 
-% % target_data is equal to train_data
-% Target_Data = Data;
-% 
-% % train
-% [net, ~] = train( net, Data, Target_Data );
-% nntraintool
-% 
-% disp('Training Done.')
-% 
-% net_enc = get_encoding_net( net, patch_size, hidden_layers );
-% net_dec = get_decoding_net( net, patch_size, hidden_layers );
-
 %% ENCODING ---------------------------------------------------------------
 % now encode the image
 
@@ -80,17 +49,6 @@ Ie = net_enc( Ir );
 for i = 1 : size( Ie, 2)
     Iq( :, i ) = quantize( Ie( :, i ), q_bits );
 end
-
-%show initial and compresed image in a plot
-% figure
-% subplot(1,2,1)
-% imshow(uint8(I))
-% title('Original image')
-% 
-% 
-% subplot(1,2,2)
-% imshow(double(I_compressed))
-% title('Compressed image')
 
 % send compressed data matrix
 I_comp.compressed_data = Iq;

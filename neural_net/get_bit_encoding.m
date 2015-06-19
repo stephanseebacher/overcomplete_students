@@ -1,6 +1,6 @@
 function [ enc ] = get_bit_encoding( x, q_bits )
 % compute encoding for x using qunanitization_bits bits in a string
-% assume x between -1 and 1
+%   assume x between -1 and 1
 
 % find possible mapping
 possible_x = -1 : 2 / (2^q_bits) : 1;
@@ -28,4 +28,4 @@ if length( enc ) < q_bits
         tmp_enc( i ) = '0';
     end
     enc = [tmp_enc enc];
-end
+end % get_bit_encoding

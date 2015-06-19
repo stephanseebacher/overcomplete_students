@@ -36,5 +36,5 @@ while i < length( bit_array )
     t=t+1;
 end
 
-end
+end % quantize
 

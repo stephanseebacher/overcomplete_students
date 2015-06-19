@@ -34,4 +34,4 @@ end
 % we still have all rows, including the excess ones from fillung up
 % so we remove them
 I_re = I_re(1 : original_dim(1), :, :);
-end
+end % reassemble_patches

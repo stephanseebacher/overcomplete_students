@@ -37,5 +37,5 @@ net_comp.layers{1}.transferFcn = 'tansig';
 net_comp.layers{1}.initFcn = 'initnw';
 net_enc = net_comp;
 
-end
+end % get_encoding_net
 

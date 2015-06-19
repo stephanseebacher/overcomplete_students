@@ -21,16 +21,17 @@ net_dec             = get_decoding_net_2( ...
 
 %% RECONSTRUCT & DECOMPRESS -----------------------------------------------
 
-%Id = zeros( patch_size^2, size( comp, 2 ));
-
+% temp matrix for dequantized values
 inflate = zeros( hidden_layers, size( comp, 2 ));
 
 for i = 1 : size( comp, 2 )
     inflate( :, i ) = extract_compr( comp( :, i ), number_bits_encoded, q_bits);
-    %Id( :, i ) = real_to_pixel( net_dec( inflate ));
 end
 
+% apply decoding net, then convert from real values to pixel values
 Id = real_to_pixel( net_dec( inflate ));
+
+% convert patch vectors into image chunks and put them into matrix
 I_rec = reassemble_patches( Id, I_comp.image_size );
 
 % in fix_image function, we multiplied by 255

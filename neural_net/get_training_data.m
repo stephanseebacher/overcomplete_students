@@ -27,4 +27,4 @@ for t = 1 : training_samples
     data( :, t )= pixel_to_real( train_data(:) );
 end
 
-end
+end % get_training_data

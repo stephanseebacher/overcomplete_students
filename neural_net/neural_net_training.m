@@ -4,7 +4,7 @@ function [ ] = neural_net_training ( k, training_samples, z )
 %   z = amount of hidden layers in the neural network
 
 % time it!
-ttrain = tic;
+%ttrain = tic;
 
 %% SETTINGS + PARAMETERS --------------------------------------------------
 % where are the pictures?
@@ -73,6 +73,6 @@ net_dec = { net_dec_LW, net_dec_b, net_dec_configure_data }; %#ok<NASGU>
 
 % save the net at the end
 save( trained_net, 'net_enc', 'net_dec' );
-disp(['Training done in ' num2str( toc( ttrain )) ' seconds'])
+%disp(['Training done in ' num2str( toc( ttrain )) ' seconds'])
 
-end
+end % neural_net_training

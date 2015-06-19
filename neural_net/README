@@ -1,0 +1,24 @@
+	CIL2015 project, group "overcomplete_students"
+	Image compression with neural networks
+
+README
+
+	In MATLAB, load an image with imread(), convert to double and divide
+	by 255. Then, compress the image by calling:
+	>> compressed_image = Compress(original_image)
+	
+	Decompression is similar:
+	>> reconstructed_image = Decompress(compressed_image)
+
+	If you want to train the neural network again, or change one of the 
+	parameters patch_size or hidden_layers, you need to have your training
+	images ready in a subfolder called "Training_Set". The files
+	"trained_net_k_?_z_?.mat" contain the neural network parts for the
+	specified patch size (k) and amount of hidden layer nodes (z). If 
+	this file doesn't exist the training function is triggered automatically.
+	
+	
+AUTHORS
+	 David Chetritt, Stephan Seebacher, Sezer Güler
+
+
