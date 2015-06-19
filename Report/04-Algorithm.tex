@@ -21,7 +21,7 @@ In the Compress function, to which one passes the original image as an argument,
 
 \item \emph{Network separation}. After the training is done, we separate the neural network into two parts, one including input and hidden layer and the other including hidden and output layer. The first will be our compression network, using the values of the hidden layer as the output, while the latter is the decompression network, taking the values of the hidden layer as input and returning an approximation of the original data.
 
-\item \emph{Network encoding} is done by applying the compression network to the column vectors of the image, effectively reducing data size from {\color{red} X bytes to Y byte}.
+\item \emph{Network encoding} is done by applying the compression network to the column vectors of the image, effectively reducing data size.
 
 \item \emph{Quantization} as shown in Figure~\ref{fig:bpQuantizer} is the process of mapping a large set of values in a partitioned interval to the set of integers \(\{1,\dots,k\}\). After compression, we quantize the output using 4 bits for quantization levels, leaving us with 16 identically wide intervals. After mapping the compression output to these values, we store two indices per byte.
 
