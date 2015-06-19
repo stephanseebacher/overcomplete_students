@@ -1,7 +1,6 @@
 \section{Discussion} \label{sec:discussion}
+In image compression, you can either have good image quality or good compression rates, as improving in one domain is detrimental for the other. The direct encoding approach focuses on compression ratio, and looking at the results we argue that it is performing quite well in this part. However, there is still room for improvement regarding time consumption and mean error. With an average runtime of 6 seconds and more for compression and decompression, the method is not yet suited for wide deployment. Potential for optimization lies in the quantization function, which currently uses more than half of the total time. Adressing the mean error, longer and thus better trained universal encoding and decoding neural networks can further reduce the mean error. 
 
-We also tried to apply SVD on the image and then compress the U and V matrices with our neural network. The training had to be adapted. This gives another improvement in the compression rate and since the neural network is applied to U and V after extracting k rows and columns of U and V, also the time performance would be better. But the decompressed U and V matrices looked very different than the original ones. This affected the reconstructed image and gave a bad mean error.\\
 
-{\color{red} TODO: Extend on following: }
-Strengths: Mean error, Compression rate.\\ 
-Weakness: Time
+
+
