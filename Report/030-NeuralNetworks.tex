@@ -5,17 +5,6 @@ Inspired by biological nervous systems, such as the human brain, artificial neur
 
 The power of neural networks lies in its ability to learn and generalize \cite{Haykin:1998:NNC:521706}. That means that even for data not encountered during training, the network produces reasonable outputs. 
 
-\subsection{Neural Network Structure}
-\label{sec:neural_net_structure}
-\begin{figure}[tbp]
-  \centering
-  \includegraphics[width=0.33\textwidth]{images/nnStructure}
-  \caption{Neural Network Structure.}
-  \label{fig:nnStructure}
-\end{figure}
-
-Figure~\ref{fig:nnStructure} shows the neural network structure we use for compression. There are three types of layers: input layer, hidden layer and output layer. The input layer and the hidden layer are fully interconnected as are the hidden layer and the output layer. The weights of the edges are determined by the training algorithm which is described in the next section. This kind of neural network is also called bottleneck-like neural network, because the hidden layer is a bottleneck.
-
 \subsection{Compression with Neural Networks}
 Most compression algorithms that use neural networks fall into one of three categories\cite{Dony1995}: 
 
@@ -35,4 +24,14 @@ This approach maps a block of the original input data, based on some distance me
 
 \subsection{Direct classification}
 In \cite{Soliman2006258}, the authors use adaptive vector quantization, together with an universal codebook, to divide the subimages into clusters. Their \emph{direct classification} approach combines the two neural networks models Kohonen and ART1, exploiting the reliability of the first and the speed of the second model. By using an universal codebook, they are able to increase the compression ratio significantly, though the image quality decreases.
+
+\subsection{Neural Network Structure} \label{sec:neural_net_structure}
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[width=0.33\textwidth]{images/nnStructure}
+  \caption{Neural Network Structure.}
+  \label{fig:nnStructure}
+\end{figure}
+
+Figure~\ref{fig:nnStructure} shows the neural network structure we use for compression. There are three types of layers: input layer, hidden layer and output layer. The input layer and the hidden layer are fully interconnected as are the hidden layer and the output layer. The weights of the edges are determined by the training algorithm which is described in section~\ref{sec:trainfcn}. This kind of neural network is also called bottleneck-like neural network, because the hidden layer is a bottleneck.
 

@@ -17,13 +17,13 @@ In the Compress function, to which one passes the original image as an argument,
 
 \item \emph{Conversion}. We convert the image data, consisting of pixels with values between 0 and 255, to real values in the range \([-1, 1]\). 
 
-\item \emph{Training} is performed ``globally'', though one can use the existing net and improve it by training on the current image for a few epochs. In this case we improve the network performance by including a set of 100 to 300 randomly chosen column vectors of the current image in the training.
+\item \emph{Training}. As described in \ref{sec:trainfcn}, training is performed ``globally''. If one wants to do additional local training, we include a set of 100 to 300 randomly chosen column vectors of the current image in the training.
 
 \item \emph{Network separation}. After the training is done, we separate the neural network into two parts, one including input and hidden layer and the other including hidden and output layer. The first will be our compression network, using the values of the hidden layer as the output, while the latter is the decompression network, taking the values of the hidden layer as input and returning an approximation of the original data.
 
 \item \emph{Network encoding} is done by applying the compression network to the column vectors of the image, effectively reducing data size from {\color{red} X bytes to Y byte}.
 
-\item \emph{Quantization} as shown in Figure~\ref{fig:bpQuantizer} is the process of mapping a large set of values in a partitioned interval to the set of integers \(\{1,...,k\}\). After compression, we quantize the output using 4 bits for quantization levels, leaving us with 16 identically wide intervals. After mapping the compression output to these values, we store two indices per byte.
+\item \emph{Quantization} as shown in Figure~\ref{fig:bpQuantizer} is the process of mapping a large set of values in a partitioned interval to the set of integers \(\{1,\dots,k\}\). After compression, we quantize the output using 4 bits for quantization levels, leaving us with 16 identically wide intervals. After mapping the compression output to these values, we store two indices per byte.
 
 \item \emph{Transmission}. The final data structure of the compressed image consists of the compressed and quantized output, the decoding net, image size and the parameters patch size, hidden layer node count and quantization bits.
 \end{enumerate}
